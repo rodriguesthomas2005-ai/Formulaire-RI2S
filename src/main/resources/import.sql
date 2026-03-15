@@ -1,0 +1,1 @@
+INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description) VALUES (1, 'Presage', true, false, 'Test simple');
