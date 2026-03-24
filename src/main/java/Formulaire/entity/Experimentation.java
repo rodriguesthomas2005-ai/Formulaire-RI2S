@@ -13,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,9 +37,12 @@ public class Experimentation {
     private Date dateFinExpe;
     private String urlImage;
 
-    @ElementCollection
-    @CollectionTable(name = "experimentation_criteres", joinColumns = @JoinColumn(name = "id_experimentation"))
+    @ElementCollection(fetch = FetchType.EAGER) // On garde le EAGER pour éviter l'erreur Lazy
+    @CollectionTable(
+        name = "experimentation_criteres_inclusion", 
+        joinColumns = @JoinColumn(name = "id_experimentation")
+    )
     @Column(name = "critere")
-    @OneToMany(mappedBy = "experimentation", fetch = FetchType.EAGER)
-    private List<String> criteresInclusion = new ArrayList<>(); 
+    // SUPPRESSION DE @OneToMany(mappedBy = "experimentation") -> C'est ça qui faisait planter le serveur
+    private List<String> criteresInclusion = new ArrayList<>();
 }
