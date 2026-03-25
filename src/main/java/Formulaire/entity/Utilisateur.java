@@ -53,6 +53,7 @@ public class Utilisateur {
     private Date dateNaissance;
 
     @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Professionnel profilPro;
 
     @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL)
