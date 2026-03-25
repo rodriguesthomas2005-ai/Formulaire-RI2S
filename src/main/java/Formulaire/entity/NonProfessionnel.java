@@ -3,6 +3,7 @@ package Formulaire.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -47,5 +48,6 @@ public class NonProfessionnel {
 
     @ManyToOne
     @JoinColumn(name = "professionnel_id")
+    @JsonIgnore
     private Professionnel professionnel;
 }

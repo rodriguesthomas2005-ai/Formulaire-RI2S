@@ -28,11 +28,6 @@ public class UtilisateurController {
 
     @Autowired private UtilisateurService utilisateurService;
 
-    @GetMapping("/ping")
-public String ping() {
-    return "Le controller Utilisateur est bien chargé !";
-}
-
     @PostMapping("/inscription")
     public ResponseEntity<?> inscrire(@RequestBody InscriptionRequest request) {
         return ResponseEntity.ok(utilisateurService.inscrireUtilisateur(
@@ -54,7 +49,7 @@ public String ping() {
         return ResponseEntity.ok(Map.of("existe", false));
     }
 
-    @GetMapping("/liste")
+    @GetMapping
     public ResponseEntity<?> lister() {
         return ResponseEntity.ok(utilisateurService.listerTousLesUtilisateurs());
     }

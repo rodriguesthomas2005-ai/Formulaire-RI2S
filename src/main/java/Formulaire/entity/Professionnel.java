@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -46,6 +47,7 @@ public class Professionnel {
     private String participationExpe;
 
     @OneToMany(mappedBy = "professionnel", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<NonProfessionnel> contactsNonPro = new ArrayList<>();
 
 }
