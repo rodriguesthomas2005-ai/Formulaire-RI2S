@@ -1,6 +1,7 @@
 package Formulaire.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import Formulaire.DTO.InscriptionRequest;
 import Formulaire.entity.Role;
 import Formulaire.entity.Utilisateur;
+import Formulaire.repository.UtilisateurRepository;
 import Formulaire.service.UtilisateurService;
 
 @RestController
@@ -27,6 +29,7 @@ import Formulaire.service.UtilisateurService;
 public class UtilisateurController {
 
     @Autowired private UtilisateurService utilisateurService;
+    @Autowired private UtilisateurRepository utilisateurRepository;
 
     @PostMapping("/inscription")
     public ResponseEntity<?> inscrire(@RequestBody InscriptionRequest request) {
@@ -53,4 +56,11 @@ public class UtilisateurController {
     public ResponseEntity<?> lister() {
         return ResponseEntity.ok(utilisateurService.listerTousLesUtilisateurs());
     }
+
+    @GetMapping("/simple")
+public List<String> listerSimple() {
+    return utilisateurRepository.findAll().stream()
+           .map(u -> u.getNom() + " " + u.getPrenom())
+           .toList();
+}
 }
