@@ -56,6 +56,7 @@ public class Utilisateur {
     private Professionnel profilPro;
 
     @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private NonProfessionnel profilNonPro;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)

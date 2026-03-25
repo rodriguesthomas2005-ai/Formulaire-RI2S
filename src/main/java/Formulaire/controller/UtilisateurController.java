@@ -28,20 +28,17 @@ public class UtilisateurController {
 
     @Autowired private UtilisateurService utilisateurService;
 
-    // Pour le formulaire d'un NOUVEAU
     @PostMapping("/inscription")
     public ResponseEntity<?> inscrire(@RequestBody InscriptionRequest request) {
         return ResponseEntity.ok(utilisateurService.inscrireUtilisateur(
             request.getUtilisateur(), request.getProfilPro(), request.getProfilNonPro(), request.getDemandeExpe()));
     }
 
-    // Pour ajouter une mission à un ANCIEN via son ID
     @PostMapping("/{id}/inscriptions")
     public ResponseEntity<?> ajouterMission(@PathVariable Long id, @RequestParam Long idExpe, @RequestParam Role role) {
         return ResponseEntity.ok(utilisateurService.ajouterMissionAUtilisateur(id, idExpe, role));
     }
 
-    // Pour que le Front sache si l'utilisateur existe
     @GetMapping("/verification")
     public ResponseEntity<?> verifier(@RequestParam String nom, @RequestParam String prenom, 
                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateNaissance) {
@@ -50,5 +47,10 @@ public class UtilisateurController {
             return ResponseEntity.ok(Map.of("existe", true, "id", user.get().getIdUtilisateur()));
         }
         return ResponseEntity.ok(Map.of("existe", false));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> lister() {
+        return ResponseEntity.ok(utilisateurService.listerTousLesUtilisateurs());
     }
 }

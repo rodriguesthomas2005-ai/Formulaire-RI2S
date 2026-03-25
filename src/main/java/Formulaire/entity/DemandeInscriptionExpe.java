@@ -27,7 +27,7 @@ public class DemandeInscriptionExpe {
 
     @ManyToOne
 @JoinColumn(name = "id_utilisateur", nullable = false)
-@JsonBackReference // <--- AJOUTE CECI
+@JsonBackReference 
 private Utilisateur utilisateur;
 
     @ManyToOne
@@ -39,7 +39,6 @@ private Utilisateur utilisateur;
     @Enumerated(EnumType.STRING)
     private Statut statut;
 
-    // --- LE RÔLE EN ENUM ---
     @Enumerated(EnumType.STRING)
     private Role rolePourCetteExpe; 
 }

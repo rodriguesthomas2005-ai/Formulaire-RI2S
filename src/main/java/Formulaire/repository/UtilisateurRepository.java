@@ -11,11 +11,6 @@ import Formulaire.entity.Utilisateur;
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
-    /**
-     * Recherche un utilisateur par son identité exacte.
-     * Cette méthode génère automatiquement la requête SQL :
-     * SELECT * FROM utilisateur WHERE nom = ? AND prenom = ? AND date_naissance = ?
-     */
     Optional<Utilisateur> findByNomAndPrenomAndDateNaissance(
         String nom, 
         String prenom, 

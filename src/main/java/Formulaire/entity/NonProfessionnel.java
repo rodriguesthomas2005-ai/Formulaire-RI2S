@@ -2,6 +2,8 @@ package Formulaire.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -30,6 +32,7 @@ public class NonProfessionnel {
     @OneToOne
     @MapsId 
     @JoinColumn(name = "id_utilisateur", nullable = false)
+    @JsonBackReference 
     private Utilisateur utilisateur;
 
     @ElementCollection(targetClass = MomentJournee.class)

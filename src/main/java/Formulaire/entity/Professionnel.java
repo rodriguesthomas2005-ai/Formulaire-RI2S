@@ -3,6 +3,8 @@ package Formulaire.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +30,7 @@ public class Professionnel {
     @OneToOne
     @MapsId // Indique que la clé primaire est la même que celle de la relation
     @JoinColumn(name = "id_utilisateur", nullable = false)
+    @JsonBackReference
     private Utilisateur utilisateur;
     
     @NonNull

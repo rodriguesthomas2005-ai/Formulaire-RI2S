@@ -21,6 +21,7 @@ import Formulaire.repository.NonProfessionnelRepository;
 import Formulaire.repository.ProfessionnelRepository;
 import Formulaire.repository.UtilisateurRepository;
 import jakarta.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class UtilisateurService {
@@ -31,7 +32,7 @@ public class UtilisateurService {
     @Autowired private ExperimentationRepository experimentationRepository;
     @Autowired private DemandeInscriptionExpeRepository demandeRepository;
 
-    // ACTION A : Création complète (Nouveau profil)
+
     @Transactional
     public Utilisateur inscrireUtilisateur(Utilisateur utilisateur, Professionnel pro, NonProfessionnel nonPro, DemandeExpeDTO demandeDto) {
         // Sauvegarde de l'utilisateur
@@ -68,4 +69,9 @@ public class UtilisateurService {
     public Optional<Utilisateur> verifierExistence(String nom, String prenom, Date date) {
         return utilisateurRepository.findByNomAndPrenomAndDateNaissance(nom, prenom, date);
     }
+
+    public List<Utilisateur> listerTousLesUtilisateurs() {
+        return utilisateurRepository.findAll();
+    }
+
 }

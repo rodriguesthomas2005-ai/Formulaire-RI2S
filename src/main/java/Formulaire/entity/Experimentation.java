@@ -43,6 +43,5 @@ public class Experimentation {
         joinColumns = @JoinColumn(name = "id_experimentation")
     )
     @Column(name = "critere")
-    // SUPPRESSION DE @OneToMany(mappedBy = "experimentation") -> C'est ça qui faisait planter le serveur
     private List<String> criteresInclusion = new ArrayList<>();
 }
