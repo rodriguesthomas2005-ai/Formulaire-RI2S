@@ -61,7 +61,7 @@ public class Utilisateur {
     @JsonManagedReference
     private NonProfessionnel profilNonPro;
 
-    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // <--- Ajoute fetch = FetchType.EAGER
 @JsonManagedReference
 private List<DemandeInscriptionExpe> demandesExperimentations;
 }
