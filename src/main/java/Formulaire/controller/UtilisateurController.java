@@ -64,6 +64,11 @@ public class UtilisateurController {
             Map<String, Object> map = new HashMap<>();
             map.put("id", u.getIdUtilisateur());
             map.put("nom", u.getNom());
+            map.put("prenom", u.getPrenom());
+            map.put("consentement", u.getConsentement());
+            map.put("telephone", u.getTelephone());
+            map.put("email", u.getEmail());
+            map.put("profilNonPro", u.getProfilNonPro());
             return map;
         }).toList();
     }
