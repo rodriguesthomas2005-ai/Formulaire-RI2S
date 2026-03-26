@@ -1,6 +1,6 @@
 package Formulaire.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,11 +36,11 @@ public class NonProfessionnel {
     @JsonBackReference 
     private Utilisateur utilisateur;
 
-    @ElementCollection(fetch = FetchType.EAGER) 
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "utilisateur_moments", joinColumns = @JoinColumn(name = "id_utilisateur"))
     @Enumerated(EnumType.STRING)
     @Column(name = "moment")
-    private List<MomentJournee> momentsJournee;
+    private Set<MomentJournee> momentsJournee; // Change List en Set ici
 
     @NonNull
     @Column(nullable = false)
