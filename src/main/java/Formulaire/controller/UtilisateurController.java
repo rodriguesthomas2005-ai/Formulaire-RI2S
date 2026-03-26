@@ -1,6 +1,7 @@
 package Formulaire.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,9 +59,12 @@ public class UtilisateurController {
     }
 
     @GetMapping("/simple")
-public List<String> listerSimple() {
-    return utilisateurRepository.findAll().stream()
-           .map(u -> u.getNom() + " " + u.getPrenom())
-           .toList();
-}
+    public List<Map<String, Object>> listerSimple() {
+        return utilisateurRepository.findAll().stream().map(u -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", u.getIdUtilisateur());
+            map.put("nom", u.getNom());
+            return map;
+        }).toList();
+    }
 }
