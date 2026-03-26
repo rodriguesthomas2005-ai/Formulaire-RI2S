@@ -68,6 +68,7 @@ public class UtilisateurController {
             map.put("consentement", u.getConsentement());
             map.put("telephone", u.getTelephone());
             map.put("email", u.getEmail());
+            map.put("profilNonPro", u.getProfilNonPro());
             return map;
         }).toList();
     }
