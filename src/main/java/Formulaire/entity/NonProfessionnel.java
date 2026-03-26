@@ -1,16 +1,10 @@
 package Formulaire.entity;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -36,11 +30,11 @@ public class NonProfessionnel {
     @JsonBackReference 
     private Utilisateur utilisateur;
 
-    @ElementCollection(targetClass = MomentJournee.class)
-    @CollectionTable(name = "utilisateur_moments", joinColumns = @JoinColumn(name = "id_utilisateur"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "moment")
-    private List<MomentJournee> momentsJournee;
+    // @ElementCollection(targetClass = MomentJournee.class)
+    // @CollectionTable(name = "utilisateur_moments", joinColumns = @JoinColumn(name = "id_utilisateur"))
+    // @Enumerated(EnumType.STRING)
+    // @Column(name = "moment")
+    // private List<MomentJournee> momentsJournee;
 
     @NonNull
     @Column(nullable = false)
