@@ -1,7 +1,7 @@
 -- 1. LES UTILISATEURS (Date de naissance est ici maintenant)
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance) VALUES (1, 'Boulanger', 'Yvette', 'yvette.b81@orange.fr', '0563112233', true, '1945-05-12');
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance) VALUES (2, 'Boulanger', 'Marc', 'marc.boulanger@gmail.com', '0612345678', true, '1975-10-20');
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance) VALUES (3, 'Lemaire', 'Sophie', 'dr.lemaire@sante.fr', '0563445566', true, '1982-03-15');
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance, code_postal) VALUES (1, 'Boulanger', 'Yvette', 'yvette.b81@orange.fr', '0563112233', true, '1945-05-12', 81000);
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance, code_postal) VALUES (2, 'Boulanger', 'Marc', 'marc.boulanger@gmail.com', '0612345678', true, '1975-10-20', 81000);
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance, code_postal) VALUES (3, 'Lemaire', 'Sophie', 'dr.lemaire@sante.fr', '0563445566', true, '1982-03-15', 81000);
 
 -- 2. LES EXPERIMENTATIONS
 INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe) VALUES (1, 'Presage', true, false, 'Test simple', '2026-06-01 10:00:00', '2026-06-30 10:00:00');
