@@ -1,8 +1,6 @@
 package Formulaire.controller;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,7 +33,7 @@ public class UtilisateurController {
     @PostMapping("/inscription")
     public ResponseEntity<?> inscrire(@RequestBody InscriptionRequest request) {
         return ResponseEntity.ok(utilisateurService.inscrireUtilisateur(
-            request.getUtilisateur(), request.getProfilPro(), request.getProfilNonPro(), request.getDemandeExpe()));
+            request.getUtilisateur(), request.getProfilPro(), request.getProfilNonPro(), request.getDemandeExpe(), request.getPersonneContactIndustriel()));
     }
 
     @PostMapping("/{id}/inscriptions")
@@ -58,25 +56,26 @@ public class UtilisateurController {
         return ResponseEntity.ok(utilisateurService.listerTousLesUtilisateurs());
     }
 
-    @GetMapping("/simple2")
-    public ResponseEntity<?> listerSimple2() {
-        // On utilise exactement la même logique que /simple qui fonctionne
-        List<Map<String, Object>> result = utilisateurRepository.findAll().stream().map(u -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", u.getIdUtilisateur());
-            map.put("nom", u.getNom());
-            map.put("prenom", u.getPrenom());
-            map.put("email", u.getEmail());
-            map.put("telephone", u.getTelephone());
-            map.put("consentement", u.getConsentement());
-            map.put("dateNaissance", u.getDateNaissance());
-            map.put("profilNonPro", u.getProfilNonPro());
-            map.put("profilPro", u.getProfilPro());
-            map.put("codePostal", u.getCodePostal());
-            map.put("missions", u.getDemandesExperimentations()); // On ajoute les missions ici
-            return map;
-        }).toList();
+    // @GetMapping("/simple2")
+    // public ResponseEntity<?> listerSimple2() {
+    //     List<Map<String, Object>> result = utilisateurRepository.findAll().stream().map(u -> {
+    //         Map<String, Object> map = new HashMap<>();
+    //         map.put("id", u.getIdUtilisateur());
+    //         map.put("nom", u.getNom());
+    //         map.put("prenom", u.getPrenom());
+    //         map.put("email", u.getEmail());
+    //         map.put("telephone", u.getTelephone());
+    //         map.put("consentement", u.getConsentement());
+    //         map.put("dateNaissance", u.getDateNaissance());
+    //         map.put("profilNonPro", u.getProfilNonPro());
+    //         map.put("profilPro", u.getProfilPro());
+    //         map.put("codePostal", u.getCodePostal());
+    //         map.put("missions", u.getDemandesExperimentations()); 
+    //         return map;
+    //     }).toList();
 
-        return ResponseEntity.ok(result);
-    }
+    //     return ResponseEntity.ok(result);
+    // }
+
+
 }

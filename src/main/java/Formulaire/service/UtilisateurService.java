@@ -12,6 +12,7 @@ import Formulaire.DTO.InscriptionRequest.DemandeExpeDTO;
 import Formulaire.entity.DemandeInscriptionExpe;
 import Formulaire.entity.Experimentation;
 import Formulaire.entity.NonProfessionnel;
+import Formulaire.entity.PersonneContactIndustriel;
 import Formulaire.entity.Professionnel;
 import Formulaire.entity.Role;
 import Formulaire.entity.Statut;
@@ -21,6 +22,7 @@ import Formulaire.repository.ExperimentationRepository;
 import Formulaire.repository.NonProfessionnelRepository;
 import Formulaire.repository.ProfessionnelRepository;
 import Formulaire.repository.UtilisateurRepository;
+import Formulaire.repository.PersonneContactIndustrielRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -31,15 +33,17 @@ public class UtilisateurService {
     @Autowired private NonProfessionnelRepository nonProfessionnelRepository;
     @Autowired private ExperimentationRepository experimentationRepository;
     @Autowired private DemandeInscriptionExpeRepository demandeRepository;
+    @Autowired private PersonneContactIndustrielRepository PersonneContactIndustrielRepository;
 
 
     @Transactional
-    public Utilisateur inscrireUtilisateur(Utilisateur utilisateur, Professionnel pro, NonProfessionnel nonPro, DemandeExpeDTO demandeDto) {
+    public Utilisateur inscrireUtilisateur(Utilisateur utilisateur, Professionnel pro, NonProfessionnel nonPro, DemandeExpeDTO demandeDto, PersonneContactIndustriel contactIndus) {
 
         Utilisateur savedUser = utilisateurRepository.save(utilisateur);
 
         if (pro != null) { pro.setUtilisateur(savedUser); professionnelRepository.save(pro); }
         if (nonPro != null) { nonPro.setUtilisateur(savedUser); nonProfessionnelRepository.save(nonPro); }
+        if (contactIndus != null) { contactIndus.setUtilisateur(savedUser); PersonneContactIndustrielRepository.save(contactIndus); }  
 
         if (demandeDto != null && demandeDto.getIdExperimentation() != null) {
             ajouterMissionAUtilisateur(savedUser.getIdUtilisateur(), demandeDto.getIdExperimentation(), demandeDto.getRolePourCetteExpe());

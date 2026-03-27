@@ -66,6 +66,10 @@ public class Utilisateur {
     private NonProfessionnel profilNonPro;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // <--- Ajoute fetch = FetchType.EAGER
-@JsonManagedReference
-private List<DemandeInscriptionExpe> demandesExperimentations;
+    @JsonManagedReference
+    private List<DemandeInscriptionExpe> demandesExperimentations;
+
+    @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private PersonneContactIndustriel profilIndustriel;
 }
