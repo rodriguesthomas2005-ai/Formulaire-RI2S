@@ -2,6 +2,7 @@ package Formulaire.service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import Formulaire.repository.NonProfessionnelRepository;
 import Formulaire.repository.ProfessionnelRepository;
 import Formulaire.repository.UtilisateurRepository;
 import jakarta.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class UtilisateurService {
@@ -35,21 +35,18 @@ public class UtilisateurService {
 
     @Transactional
     public Utilisateur inscrireUtilisateur(Utilisateur utilisateur, Professionnel pro, NonProfessionnel nonPro, DemandeExpeDTO demandeDto) {
-        // Sauvegarde de l'utilisateur
+
         Utilisateur savedUser = utilisateurRepository.save(utilisateur);
 
-        // Liaison des profils
         if (pro != null) { pro.setUtilisateur(savedUser); professionnelRepository.save(pro); }
         if (nonPro != null) { nonPro.setUtilisateur(savedUser); nonProfessionnelRepository.save(nonPro); }
 
-        // Ajout de la première mission si présente
         if (demandeDto != null && demandeDto.getIdExperimentation() != null) {
             ajouterMissionAUtilisateur(savedUser.getIdUtilisateur(), demandeDto.getIdExperimentation(), demandeDto.getRolePourCetteExpe());
         }
         return savedUser;
     }
 
-    // ACTION B : Ajout de mission seule (Utilisateur déjà existant)
     @Transactional
     public DemandeInscriptionExpe ajouterMissionAUtilisateur(Long idUser, Long idExpe, Role role) {
         Utilisateur user = utilisateurRepository.findById(idUser).orElseThrow();

@@ -72,26 +72,11 @@ public class UtilisateurController {
             map.put("dateNaissance", u.getDateNaissance());
             map.put("profilNonPro", u.getProfilNonPro());
             map.put("profilPro", u.getProfilPro());
+            map.put("codePostal", u.getCodePostal());
             map.put("missions", u.getDemandesExperimentations()); // On ajoute les missions ici
             return map;
         }).toList();
 
         return ResponseEntity.ok(result);
-    }
-
-    @GetMapping("/simple")
-    public List<Map<String, Object>> listerSimple() {
-        return utilisateurRepository.findAll().stream().map(u -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", u.getIdUtilisateur());
-            map.put("nom", u.getNom());
-            map.put("prenom", u.getPrenom());
-            map.put("consentement", u.getConsentement());
-            map.put("telephone", u.getTelephone());
-            map.put("email", u.getEmail());
-            map.put("profilNonPro", u.getProfilNonPro());
-            map.put("profilPro", u.getProfilPro());
-            return map;
-        }).toList();
     }
 }

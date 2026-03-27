@@ -53,6 +53,10 @@ public class Utilisateur {
     @Column(nullable = false)
     private Date dateNaissance;
 
+    @NonNull
+    @Column(nullable = false)
+    private Integer codePostal;
+
     @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Professionnel profilPro;
