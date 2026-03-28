@@ -1,14 +1,7 @@
 package Formulaire.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.Column; // Importe tout ce qui commence par @ (Entity, Table, Id, etc.)
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -39,4 +32,25 @@ public class Professionnel {
     @NonNull
     @Column(nullable = false)
     private String participationExpe;
+
+    @NonNull
+    @Column(nullable = false)
+    private String profession;
+    
+    @NonNull
+    @Column(nullable = false)
+    private String villeEtablissement;
+
+    @NonNull
+    @Column(nullable = false)
+    private String zoneGeoPatient;
+
+    @NonNull
+    @Column(nullable = false)
+    private String milieuProfessionnel;
+
+    private String connaissanceRI2S;
+
+    @Column(length = 1000)
+    private String infoComplementaires;
 }
