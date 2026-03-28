@@ -39,7 +39,7 @@ INSERT INTO professionnel (
     zone_geo_patient, 
     milieu_professionnel, 
     info_complementaires, 
-    connaissance_ri2s
+    connaissanceri2s
 ) VALUES (
     3, 
     'Médecin Généraliste', 
