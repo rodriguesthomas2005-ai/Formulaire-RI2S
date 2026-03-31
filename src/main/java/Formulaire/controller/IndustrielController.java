@@ -25,6 +25,7 @@ import Formulaire.entity.Industriel;
 import Formulaire.entity.DossierCandidature;
 import Formulaire.entity.Fichier;
 import Formulaire.service.IndustrielService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/industriels")
@@ -33,6 +34,18 @@ public class IndustrielController {
 
     @Autowired
     private IndustrielService industrielService;
+
+    @GetMapping
+    public ResponseEntity<List<Industriel>> listerTousLesIndustriels() {
+        // Cette méthode va chercher les industriels et, grâce au FetchType.EAGER 
+        // ou à la structure JPA, inclure les dossiers et fichiers.
+        return ResponseEntity.ok(industrielService.listerTout());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Industriel> recupererUnIndustriel(@PathVariable Long id) {
+        return ResponseEntity.ok(industrielService.trouverParId(id));
+    }
 
     @PostMapping("/inscription/{id}/industriel")
     public ResponseEntity<?> ajouterDossierIndustriel(@RequestBody InscriptionRequest request, @PathVariable Long id) {

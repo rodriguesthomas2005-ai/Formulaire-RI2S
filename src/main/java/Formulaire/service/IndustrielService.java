@@ -1,15 +1,17 @@
 package Formulaire.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import Formulaire.entity.DossierCandidature;
 import Formulaire.entity.Fichier;
 import Formulaire.entity.Industriel;
-import Formulaire.repository.IndustrielRepository; 
-import Formulaire.repository.DossierCandidatureRepository; 
-import Formulaire.repository.FichierRepository; 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import Formulaire.repository.DossierCandidatureRepository;
+import Formulaire.repository.FichierRepository;
+import Formulaire.repository.IndustrielRepository;
 import jakarta.transaction.Transactional;
-
 @Service
 public class IndustrielService {
 
@@ -36,5 +38,14 @@ public class IndustrielService {
         }
 
         return savedIndustriel;
+    }
+
+    public List<Industriel> listerTout() {
+    return industrielRepository.findAll();
+    }
+
+    public Industriel trouverParId(Long id) {
+        return industrielRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Industriel non trouvé"));
     }
 }
