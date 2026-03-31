@@ -20,9 +20,9 @@ import Formulaire.entity.Utilisateur;
 import Formulaire.repository.DemandeInscriptionExpeRepository;
 import Formulaire.repository.ExperimentationRepository;
 import Formulaire.repository.NonProfessionnelRepository;
+import Formulaire.repository.PersonneContactIndustrielRepository;
 import Formulaire.repository.ProfessionnelRepository;
 import Formulaire.repository.UtilisateurRepository;
-import Formulaire.repository.PersonneContactIndustrielRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -52,6 +52,27 @@ public class UtilisateurService {
     }
 
     @Transactional
+    public Professionnel ajouterProfilPro(Long idUtilisateur, Professionnel pro) {
+        Utilisateur user = utilisateurRepository.findById(idUtilisateur)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        pro.setUtilisateur(user);
+        user.setProfilPro(pro); 
+        
+        return professionnelRepository.save(pro);
+    }
+
+    @Transactional
+    public NonProfessionnel ajouterProfilNonPro(Long idUtilisateur, NonProfessionnel nonPro) {
+        Utilisateur user = utilisateurRepository.findById(idUtilisateur)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        nonPro.setUtilisateur(user);
+        user.setProfilNonPro(nonPro);
+        
+        return nonProfessionnelRepository.save(nonPro);
+    }
+
+    @Transactional
     public DemandeInscriptionExpe ajouterMissionAUtilisateur(Long idUser, Long idExpe, Role role) {
         Utilisateur user = utilisateurRepository.findById(idUser).orElseThrow();
         Experimentation expe = experimentationRepository.findById(idExpe).orElseThrow();
@@ -66,7 +87,7 @@ public class UtilisateurService {
         return demandeRepository.save(demande);
     }
 
-    // Vérification simple pour le Front
+
     public Optional<Utilisateur> verifierExistence(String nom, String prenom, Date date) {
         return utilisateurRepository.findByNomAndPrenomAndDateNaissance(nom, prenom, date);
     }

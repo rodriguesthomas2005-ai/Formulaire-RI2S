@@ -16,7 +16,7 @@ import Formulaire.service.ExperimentationService;
 
 @RestController
 @RequestMapping("/api/experimentations")
-@CrossOrigin(origins = "*") // Important pour ton futur front Vue.js
+@CrossOrigin(origins = "*")
 public class ExperimentationController {
 
     @Autowired

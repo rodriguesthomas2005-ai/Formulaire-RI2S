@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Formulaire.DTO.InscriptionRequest;
+import Formulaire.entity.NonProfessionnel;
+import Formulaire.entity.Professionnel;
 import Formulaire.entity.Role;
 import Formulaire.entity.Utilisateur;
 import Formulaire.repository.UtilisateurRepository;
@@ -36,10 +38,21 @@ public class UtilisateurController {
             request.getUtilisateur(), request.getProfilPro(), request.getProfilNonPro(), request.getDemandeExpe(), request.getPersonneContactIndustriel()));
     }
 
+    @PostMapping("/{id}/profil-pro")
+    public ResponseEntity<?> upgradeToPro(@PathVariable Long id, @RequestBody Professionnel pro) {
+        return ResponseEntity.ok(utilisateurService.ajouterProfilPro(id, pro));
+    }
+
+    @PostMapping("/{id}/profil-non-pro")
+    public ResponseEntity<?> upgradeToNonPro(@PathVariable Long id, @RequestBody NonProfessionnel nonPro) {
+        return ResponseEntity.ok(utilisateurService.ajouterProfilNonPro(id, nonPro));
+    }
+
     @PostMapping("/{id}/inscriptions")
     public ResponseEntity<?> ajouterMission(@PathVariable Long id, @RequestParam Long idExpe, @RequestParam Role role) {
         return ResponseEntity.ok(utilisateurService.ajouterMissionAUtilisateur(id, idExpe, role));
     }
+    
 
     @GetMapping("/verification")
     public ResponseEntity<?> verifier(@RequestParam String nom, @RequestParam String prenom, 
@@ -55,27 +68,6 @@ public class UtilisateurController {
     public ResponseEntity<?> lister() {
         return ResponseEntity.ok(utilisateurService.listerTousLesUtilisateurs());
     }
-
-    // @GetMapping("/simple2")
-    // public ResponseEntity<?> listerSimple2() {
-    //     List<Map<String, Object>> result = utilisateurRepository.findAll().stream().map(u -> {
-    //         Map<String, Object> map = new HashMap<>();
-    //         map.put("id", u.getIdUtilisateur());
-    //         map.put("nom", u.getNom());
-    //         map.put("prenom", u.getPrenom());
-    //         map.put("email", u.getEmail());
-    //         map.put("telephone", u.getTelephone());
-    //         map.put("consentement", u.getConsentement());
-    //         map.put("dateNaissance", u.getDateNaissance());
-    //         map.put("profilNonPro", u.getProfilNonPro());
-    //         map.put("profilPro", u.getProfilPro());
-    //         map.put("codePostal", u.getCodePostal());
-    //         map.put("missions", u.getDemandesExperimentations()); 
-    //         return map;
-    //     }).toList();
-
-    //     return ResponseEntity.ok(result);
-    // }
 
 
 }
