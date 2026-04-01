@@ -24,27 +24,21 @@ public class IndustrielService {
 
     @Transactional
     public Industriel inscrireIndustriel(Industriel industriel, DossierCandidature dossier, Fichier fichier, Long idUser) {
-        // 1. Récupérer l'utilisateur (le contact)
         Utilisateur user = utilisateurRepository.findById(idUser)
             .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
         
-        // 2. Lier l'industriel à l'utilisateur
         industriel.setIdUtilisateur(idUser);
 
         if (dossier != null) {
-            // --- LA LIAISON MAGIQUE ICI ---
-            dossier.setIndustriel(industriel); // On dit au dossier qui est son industriel
-            industriel.getDossiers().add(dossier); // On ajoute le dossier à la liste de l'industriel
+            dossier.setIndustriel(industriel);
+            industriel.getDossiers().add(dossier); 
             
             if (fichier != null) {
-                // --- LA LIAISON POUR LE FICHIER ---
-                fichier.setDossier(dossier); // On dit au fichier qui est son dossier
-                dossier.getFichiers().add(fichier); // On l'ajoute à la liste du dossier
+                fichier.setDossier(dossier);
+                dossier.getFichiers().add(fichier);
             }
         }
 
-        // Grâce au CascadeType.ALL dans tes entités, sauvegarder l'industriel
-        // va automatiquement sauvegarder le dossier et le fichier liés.
         return industrielRepository.save(industriel);
     }
 
