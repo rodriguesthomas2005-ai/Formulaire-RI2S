@@ -8,36 +8,44 @@ import org.springframework.stereotype.Service;
 import Formulaire.entity.DossierCandidature;
 import Formulaire.entity.Fichier;
 import Formulaire.entity.Industriel;
+import Formulaire.entity.Utilisateur;
 import Formulaire.repository.DossierCandidatureRepository;
 import Formulaire.repository.FichierRepository;
 import Formulaire.repository.IndustrielRepository;
 import jakarta.transaction.Transactional;
+import Formulaire.repository.UtilisateurRepository;
 @Service
 public class IndustrielService {
 
     @Autowired private IndustrielRepository industrielRepository;
     @Autowired private DossierCandidatureRepository dossierRepository;
     @Autowired private FichierRepository fichierRepository;
+    @Autowired private UtilisateurRepository utilisateurRepository;
 
     @Transactional
-    public Industriel inscrireIndustriel(Industriel industriel, DossierCandidature dossier, Fichier fichier, Long idUtilisateur) {
+    public Industriel inscrireIndustriel(Industriel industriel, DossierCandidature dossier, Fichier fichier, Long idUser) {
+        // 1. Récupérer l'utilisateur (le contact)
+        Utilisateur user = utilisateurRepository.findById(idUser)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
         
-        // 1. On lie l'industriel à l'ID de l'utilisateur (PersonneContact)
-        industriel.setIdUtilisateur(idUtilisateur);
-        Industriel savedIndustriel = industrielRepository.save(industriel);
+        // 2. Lier l'industriel à l'utilisateur
+        industriel.setIdUtilisateur(idUser);
 
-        // 2. On enregistre le dossier s'il existe
         if (dossier != null) {
-            // Ici, il faudrait idéalement un lien dans DossierCandidature vers l'Industriel
-            dossierRepository.save(dossier);
+            // --- LA LIAISON MAGIQUE ICI ---
+            dossier.setIndustriel(industriel); // On dit au dossier qui est son industriel
+            industriel.getDossiers().add(dossier); // On ajoute le dossier à la liste de l'industriel
+            
+            if (fichier != null) {
+                // --- LA LIAISON POUR LE FICHIER ---
+                fichier.setDossier(dossier); // On dit au fichier qui est son dossier
+                dossier.getFichiers().add(fichier); // On l'ajoute à la liste du dossier
+            }
         }
 
-        // 3. On enregistre le fichier s'il existe
-        if (fichier != null) {
-            fichierRepository.save(fichier);
-        }
-
-        return savedIndustriel;
+        // Grâce au CascadeType.ALL dans tes entités, sauvegarder l'industriel
+        // va automatiquement sauvegarder le dossier et le fichier liés.
+        return industrielRepository.save(industriel);
     }
 
     @Transactional

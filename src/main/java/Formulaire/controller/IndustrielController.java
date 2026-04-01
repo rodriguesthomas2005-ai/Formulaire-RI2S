@@ -26,8 +26,6 @@ public class IndustrielController {
 
     @GetMapping
     public ResponseEntity<List<Industriel>> listerTousLesIndustriels() {
-        // Cette méthode va chercher les industriels et, grâce au FetchType.EAGER 
-        // ou à la structure JPA, inclure les dossiers et fichiers.
         return ResponseEntity.ok(industrielService.listerTout());
     }
 
