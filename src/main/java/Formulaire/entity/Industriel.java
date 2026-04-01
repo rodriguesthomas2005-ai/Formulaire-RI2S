@@ -54,7 +54,7 @@ public class Industriel {
     @Column(nullable = false)
     private String autreLien;
 
-    @OneToMany(mappedBy = "industriel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "industriel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<DossierCandidature> dossiers = new ArrayList<>();
     

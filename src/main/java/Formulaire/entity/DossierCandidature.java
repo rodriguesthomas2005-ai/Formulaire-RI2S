@@ -58,7 +58,7 @@ public class DossierCandidature {
     @JsonBackReference
     private Industriel industriel;
 
-    @OneToMany(mappedBy = "dossier", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dossier", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Fichier> fichiers = new ArrayList<>();
 }
