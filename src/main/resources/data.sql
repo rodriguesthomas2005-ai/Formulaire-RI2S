@@ -17,8 +17,10 @@ INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissan
 VALUES (3, 'Lemaire', 'Sophie',  true, '1982-03-15', 81200);
 
 -- 3. LES EXPERIMENTATIONS
-INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe) 
-VALUES (1, 'Presage',  true, false, 'Test de détection de fragilité', '2026-06-01 10:00:00', '2026-06-30 10:00:00');
+INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
+VALUES (1, 'Presage',  true, false, 'Outils d’intelligence artificielle qui prédit les risques d’hospitalisation des personnes âgées, lutte contre les ruptures de parcours et soutien les aidants.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://presage.care/wp-content/uploads/2021/04/Groupe-12162@2x-192x300.png');
+INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
+VALUES (2, 'Telegragik',  true, false, 'Projet visant à développer et éprouver des nouveaux signaux de détection d’une perte d’autonomie chez les personnes âgées, grâce à des capteurs installés à domicile. Les capteurs permettront également de sécuriser les bénéficiaires, en alertant en cas de détection d’inactivité anormale.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://www.telegrafik.fr/wp-content/uploads/2024/12/logo-telegrafik.svg');
 
 -- 4. PROFIL NON-PROFESSIONNEL (Yvette et Marc)
 INSERT INTO non_professionnel (id_utilisateur, participation_expe, email_non_pro, telephone_non_pro) VALUES (1, 'OUI', 'yvette.boulanger@gmail.com', '0563112233');
@@ -65,4 +67,4 @@ INSERT INTO demande_inscription_expe (id_utilisateur, id_experimentation, role_p
 VALUES (2, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
 
 -- 7. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
-ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 10;
+ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 4;
