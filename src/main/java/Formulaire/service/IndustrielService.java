@@ -40,10 +40,13 @@ public class IndustrielService {
         return savedIndustriel;
     }
 
+    @Transactional
     public List<Industriel> listerTout() {
     return industrielRepository.findAll();
     }
 
+
+    @Transactional
     public Industriel trouverParId(Long id) {
         return industrielRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Industriel non trouvé"));
