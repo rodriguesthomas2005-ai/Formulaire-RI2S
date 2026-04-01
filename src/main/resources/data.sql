@@ -7,14 +7,14 @@ TRUNCATE TABLE utilisateur CASCADE;
 TRUNCATE TABLE experimentation CASCADE;
 
 -- 2. LES UTILISATEURS
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, telephone, consentement, date_naissance, code_postal) 
-VALUES (1, 'Boulanger', 'Yvette', '0563112233', true, '1945-05-12', 81000);
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
+VALUES (1, 'Boulanger', 'Yvette', true, '1945-05-12', 81000);
 
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance, code_postal) 
-VALUES (2, 'Boulanger', 'Marc', 'marc.boulanger@gmail.com', '0612345678', true, '1975-10-20', 81100);
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
+VALUES (2, 'Boulanger', 'Marc', true, '1975-10-20', 81100);
 
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance, code_postal) 
-VALUES (3, 'Lemaire', 'Sophie', 'dr.lemaire@sante.fr', '0563445566', true, '1982-03-15', 81200);
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
+VALUES (3, 'Lemaire', 'Sophie',  true, '1982-03-15', 81200);
 
 -- 3. LES EXPERIMENTATIONS
 INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe) 
