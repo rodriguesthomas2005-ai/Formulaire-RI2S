@@ -9,9 +9,7 @@ import java.util.Date;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "Industriel")
@@ -28,7 +26,7 @@ public class Industriel {
 
     @NonNull
     @Column(nullable = false)
-    private int siret;
+    private Long siret;
 
     @NonNull
     @Column(nullable = false)
@@ -40,7 +38,7 @@ public class Industriel {
 
     @NonNull
     @Column(nullable = false)
-    private int effectif;
+    private Integer effectif;
 
     @NonNull
     @Column(nullable = false)
