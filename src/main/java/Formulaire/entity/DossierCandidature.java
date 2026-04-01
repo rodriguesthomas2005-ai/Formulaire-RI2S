@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -58,5 +60,5 @@ public class DossierCandidature {
 
     @OneToMany(mappedBy = "dossier", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Fichier> fichiers;
+    private List<Fichier> fichiers = new ArrayList<>();
 }

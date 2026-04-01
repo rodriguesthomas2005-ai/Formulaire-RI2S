@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -54,6 +56,6 @@ public class Industriel {
 
     @OneToMany(mappedBy = "industriel", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<DossierCandidature> dossiers;
+    private List<DossierCandidature> dossiers = new ArrayList<>();
     
 }
