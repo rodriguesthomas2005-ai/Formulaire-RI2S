@@ -7,8 +7,8 @@ TRUNCATE TABLE utilisateur CASCADE;
 TRUNCATE TABLE experimentation CASCADE;
 
 -- 2. LES UTILISATEURS
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance, code_postal) 
-VALUES (1, 'Boulanger', 'Yvette', 'yvette.b81@orange.fr', '0563112233', true, '1945-05-12', 81000);
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, telephone, consentement, date_naissance, code_postal) 
+VALUES (1, 'Boulanger', 'Yvette', '0563112233', true, '1945-05-12', 81000);
 
 INSERT INTO utilisateur (id_utilisateur, nom, prenom, email, telephone, consentement, date_naissance, code_postal) 
 VALUES (2, 'Boulanger', 'Marc', 'marc.boulanger@gmail.com', '0612345678', true, '1975-10-20', 81100);
@@ -18,11 +18,11 @@ VALUES (3, 'Lemaire', 'Sophie', 'dr.lemaire@sante.fr', '0563445566', true, '1982
 
 -- 3. LES EXPERIMENTATIONS
 INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe) 
-VALUES (1, 'Presage', true, false, 'Test de détection de fragilité', '2026-06-01 10:00:00', '2026-06-30 10:00:00');
+VALUES (1, 'Presage',  true, false, 'Test de détection de fragilité', '2026-06-01 10:00:00', '2026-06-30 10:00:00');
 
 -- 4. PROFIL NON-PROFESSIONNEL (Yvette et Marc)
-INSERT INTO non_professionnel (id_utilisateur, participation_expe) VALUES (1, 'OUI');
-INSERT INTO non_professionnel (id_utilisateur, participation_expe) VALUES (2, 'OUI');
+INSERT INTO non_professionnel (id_utilisateur, participation_expe, email_non_pro, telephone_non_pro) VALUES (1, 'OUI', 'yvette.boulanger@gmail.com', '0563112233');
+INSERT INTO non_professionnel (id_utilisateur, participation_expe, email_non_pro, telephone_non_pro) VALUES (2, 'OUI', 'marc.boulanger@gmail.com', '0612345678');
 
 INSERT INTO utilisateur_moments (id_utilisateur, moment) VALUES (1, 'MATIN');
 INSERT INTO utilisateur_moments (id_utilisateur, moment) VALUES (1, 'SOIR');
@@ -39,7 +39,9 @@ INSERT INTO professionnel (
     zone_geo_patient, 
     milieu_professionnel, 
     info_complementaires, 
-    connaissanceri2s
+    connaissanceri2s, 
+    email_pro, 
+    telephone_pro
 ) VALUES (
     3, 
     'Médecin Généraliste', 
@@ -50,7 +52,9 @@ INSERT INTO professionnel (
     'Tarn Sud', 
     'Libéral', 
     'Disponible le jeudi après-midi pour les suivis.', 
-    'Bouche à oreille'
+    'Bouche à oreille',
+    'sophie.lemaire@sante.fr',
+    '0563445566'
 );
 
 -- 6. LES INSCRIPTIONS AUX MISSIONS

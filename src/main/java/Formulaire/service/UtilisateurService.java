@@ -55,12 +55,11 @@ public class UtilisateurService {
 
     @Transactional
     public Professionnel ajouterProfilPro(Long idUtilisateur, UpgradeProDTO dto) {
-        // 1. Récupérer l'utilisateur existant
         Utilisateur user = utilisateurRepository.findById(idUtilisateur)
             .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id : " + idUtilisateur));
-
-        // 2. Créer l'entité Professionnel et mapper les champs
         Professionnel pro = new Professionnel();
+        pro.setTelephonePro(dto.getTelephonePro()); 
+        pro.setEmailPro(dto.getEmailPro());       
         pro.setNomFonction(dto.getNomFonction());
         pro.setStructure(dto.getStructure());
         pro.setParticipationExpe(dto.getParticipationExpe());
@@ -70,11 +69,7 @@ public class UtilisateurService {
         pro.setMilieuProfessionnel(dto.getMilieuProfessionnel());
         pro.setConnaissanceRI2S(dto.getConnaissanceRI2S());
         pro.setInfoComplementaires(dto.getInfoComplementaires());
-
-        // 3. Lier l'utilisateur (Indispensable pour la clé primaire partagée @MapsId)
         pro.setUtilisateur(user);
-        
-        // 4. Sauvegarder
         return professionnelRepository.save(pro);
     }
 
@@ -83,17 +78,11 @@ public class UtilisateurService {
         // 1. On cherche l'utilisateur
         Utilisateur user = utilisateurRepository.findById(idUtilisateur)
             .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
-
-        // 2. On crée l'entité à partir du DTO
         NonProfessionnel nonPro = new NonProfessionnel();
         nonPro.setParticipationExpe(dto.getParticipationExpe());
-        
-        // Si momentsJournee est un Set d'Enums, conversion si nécessaire
-        // nonPro.setMomentsJournee(dto.getMomentsJournee()); 
-
-        // 3. On lie l'utilisateur (Crucial pour @MapsId)
         nonPro.setUtilisateur(user);
-        
+        nonPro.setEmailNonPro(dto.getEmailNonPro());
+        nonPro.setTelephoneNonPro(dto.getTelephoneNonPro());
         return nonProfessionnelRepository.save(nonPro);
     }
 

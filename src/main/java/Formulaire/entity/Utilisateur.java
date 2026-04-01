@@ -39,14 +39,6 @@ public class Utilisateur {
 
     @NonNull
     @Column(nullable = false)
-    private String email;
-
-    @NonNull
-    @Column(nullable = false)
-    private String telephone;
-
-    @NonNull
-    @Column(nullable = false)
     private Boolean consentement;
 
     @NonNull

@@ -46,7 +46,6 @@ public class UtilisateurController {
         return ResponseEntity.ok(utilisateurService.ajouterProfilPro(id, dto));
     }
     
-
     @PostMapping("/{id}/profil-non-pro")
     public ResponseEntity<?> upgradeToNonPro(@PathVariable Long id, @RequestBody UpgradeNonProDTO dto) {
         // Transformer le DTO en entité dans le service

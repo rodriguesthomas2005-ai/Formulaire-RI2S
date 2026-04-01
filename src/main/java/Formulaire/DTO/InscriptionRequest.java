@@ -34,11 +34,15 @@ public class InscriptionRequest {
     public static class UpgradeNonProDTO {
     private String participationExpe;
     private List<String> momentsJournee;
+    private String emailNonPro;   
+    private String telephoneNonPro;
     }
 
 
     @Data
     public static class UpgradeProDTO {
+        private String emailPro;
+        private String telephonePro;
         private String nomFonction;
         private String structure;
         private String participationExpe;

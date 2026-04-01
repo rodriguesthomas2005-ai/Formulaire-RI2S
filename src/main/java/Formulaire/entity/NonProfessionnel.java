@@ -46,6 +46,14 @@ public class NonProfessionnel {
     @Column(nullable = false)
     private String participationExpe;
 
+    @NonNull
+    @Column(nullable = false)
+    private String emailNonPro;
+
+    @NonNull
+    @Column(nullable = false)
+    private String telephoneNonPro;
+
     @ManyToOne
     @JoinColumn(name = "professionnel_id")
     @JsonIgnore
