@@ -1,5 +1,7 @@
 package Formulaire.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,5 +45,6 @@ public class Fichier {
 
     @ManyToOne
     @JoinColumn(name = "id_dossier")
+    @JsonBackReference
     private DossierCandidature dossier;
 }
