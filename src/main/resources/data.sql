@@ -72,16 +72,71 @@ VALUES (2, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
 -- 7. PERSONNE CONTACT INDUSTRIEL 
 INSERT INTO personne_contact_industriel (id_utilisateur, fonction) VALUES (4, 'Fondatrice MedTech');
 
--- 8. PARTIE INDUSTRIEL
-INSERT INTO industriel (id_utilisateur, nom_entreprise, siret, mail_industriel, date_creation, effectif, structure_juridique, site_web) 
-VALUES (1, 'SanteConnect', 88877766600011, 'contact@santeconnect.fr', '2024-01-01', 10, 'SAS', 'www.santeconnect.fr');
+INSERT INTO industriel (
+    id_utilisateur, 
+    nom_entreprise, 
+    siret, 
+    mail_industriel, 
+    date_creation, 
+    effectif, 
+    structure_juridique, 
+    site_web, 
+    autre_lien
+) VALUES (
+    4, 
+    'MedTech Vision', 
+    88877766600011, 
+    'contact@medtech-vision.fr', 
+    '2024-02-15', 
+    8, 
+    'SAS', 
+    'www.medtech-vision.fr', 
+    'linkedin.com/company/medtechvision'
+);
 
--- 9. DOSSIER ET FICHIER
-INSERT INTO dossier_candidature (id_candidature, id_industriel, nom_dossier, statue_dossier, description_solution) 
-VALUES (1, 1, 'Projet IA Diabète', 'EN_ATTENTE', 'Algorithme de suivi glycémique');
+-- 4. LE DOSSIER DE CANDIDATURE 
+INSERT INTO dossier_candidature (
+    id_candidature, 
+    id_industriel, 
+    nom_dossier, 
+    statue_dossier, 
+    description_solution, 
+    equipe_ecosysteme, 
+    integration_marche, 
+    technologie_niveau_maturite, 
+    projet_expe_souhaite, 
+    commentaire
+) VALUES (
+    1, 
+    1, 
+    'Solution IA Diabète', 
+    'EN_ATTENTE', 
+    'Algorithme de prédiction des crises d''hypoglycémie.', 
+    '2024-02-15', 
+    '2 data scientists, 1 endocrinologue.', 
+    'France, horizon 2027.', 
+    'TRL 6', 
+    'Cherche partenariat avec un hôpital local.'
+);
 
-INSERT INTO fichier (id_fichier, id_dossier, nom_fichier, url, type, statut_scan) 
-VALUES (1, 1, 'presentation.pdf', 'https://cloud.com/doc.pdf', 'PDF', 'CLEAN');
+-- 5. LE FICHIER (Lié au dossier 5)
+INSERT INTO fichier (
+    id_fichier, 
+    id_dossier, 
+    nom_fichier, 
+    url, 
+    type, 
+    statut_scan, 
+    taille
+) VALUES (
+    1, 
+    1, 
+    'schema_technique_v2.pdf', 
+    'https://mon-cloud.com/files/medtech_doc.pdf', 
+    'PDF', 
+    'CLEAN', 
+    '2.4 MB'
+);
 
 -- 10. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
 ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 4;
