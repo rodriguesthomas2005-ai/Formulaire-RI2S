@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Formulaire.DTO.InscriptionRequest;
+import Formulaire.DTO.InscriptionRequest.UpgradeNonProDTO;
+import Formulaire.DTO.InscriptionRequest.UpgradeProDTO;
 import Formulaire.entity.NonProfessionnel;
 import Formulaire.entity.Professionnel;
 import Formulaire.entity.Role;
@@ -39,13 +41,16 @@ public class UtilisateurController {
     }
 
     @PostMapping("/{id}/profil-pro")
-    public ResponseEntity<?> upgradeToPro(@PathVariable Long id, @RequestBody Professionnel pro) {
-        return ResponseEntity.ok(utilisateurService.ajouterProfilPro(id, pro));
+    public ResponseEntity<?> upgradeToPro(@PathVariable Long id, @RequestBody UpgradeProDTO dto) {
+        // On passe le DTO au service pour la transformation
+        return ResponseEntity.ok(utilisateurService.ajouterProfilPro(id, dto));
     }
+    
 
     @PostMapping("/{id}/profil-non-pro")
-    public ResponseEntity<?> upgradeToNonPro(@PathVariable Long id, @RequestBody NonProfessionnel nonPro) {
-        return ResponseEntity.ok(utilisateurService.ajouterProfilNonPro(id, nonPro));
+    public ResponseEntity<?> upgradeToNonPro(@PathVariable Long id, @RequestBody UpgradeNonProDTO dto) {
+        // Transformer le DTO en entité dans le service
+        return ResponseEntity.ok(utilisateurService.ajouterProfilNonPro(id, dto));
     }
 
     @PostMapping("/{id}/inscriptions")

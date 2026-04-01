@@ -1,5 +1,7 @@
 package Formulaire.DTO;
 
+import java.util.List;
+
 import Formulaire.entity.DossierCandidature;
 import Formulaire.entity.Fichier;
 import Formulaire.entity.Industriel;
@@ -27,4 +29,25 @@ public class InscriptionRequest {
         private Long idExperimentation;
         private Role rolePourCetteExpe; 
     }
+
+    @Data
+    public static class UpgradeNonProDTO {
+    private String participationExpe;
+    private List<String> momentsJournee;
+    }
+
+
+    @Data
+    public static class UpgradeProDTO {
+        private String nomFonction;
+        private String structure;
+        private String participationExpe;
+        private String profession;
+        private String villeEtablissement;
+        private String zoneGeoPatient;
+        private String milieuProfessionnel;
+        private String connaissanceRI2S;
+        private String infoComplementaires;
+    }
 }
+    
