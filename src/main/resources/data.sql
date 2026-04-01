@@ -69,5 +69,19 @@ VALUES (1, 1, 'SENIOR', 'EN_ATTENTE', CURRENT_TIMESTAMP);
 INSERT INTO demande_inscription_expe (id_utilisateur, id_experimentation, role_pour_cette_expe, statut, date_demande) 
 VALUES (2, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
 
--- 7. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
+-- 7. PERSONNE CONTACT INDUSTRIEL 
+INSERT INTO personne_contact_industriel (id_utilisateur, fonction) VALUES (4, 'Fondatrice MedTech');
+
+-- 8. PARTIE INDUSTRIEL
+INSERT INTO industriel (id_utilisateur, nom_entreprise, siret, mail_industriel, date_creation, effectif, structure_juridique, site_web) 
+VALUES (1, 'SanteConnect', 88877766600011, 'contact@santeconnect.fr', '2024-01-01', 10, 'SAS', 'www.santeconnect.fr');
+
+-- 9. DOSSIER ET FICHIER
+INSERT INTO dossier_candidature (id_candidature, id_industriel, nom_dossier, statue_dossier, description_solution) 
+VALUES (1, 1, 'Projet IA Diabète', 'EN_ATTENTE', 'Algorithme de suivi glycémique');
+
+INSERT INTO fichier (id_fichier, id_dossier, nom_fichier, url, type, statut_scan) 
+VALUES (1, 1, 'presentation.pdf', 'https://cloud.com/doc.pdf', 'PDF', 'CLEAN');
+
+-- 10. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
 ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 4;
