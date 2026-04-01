@@ -28,7 +28,7 @@ public class Industriel {
 
     @NonNull
     @Column(nullable = false)
-    private int SIRET;
+    private int siret;
 
     @NonNull
     @Column(nullable = false)
@@ -40,7 +40,7 @@ public class Industriel {
 
     @NonNull
     @Column(nullable = false)
-    private int Effectif;
+    private int effectif;
 
     @NonNull
     @Column(nullable = false)
