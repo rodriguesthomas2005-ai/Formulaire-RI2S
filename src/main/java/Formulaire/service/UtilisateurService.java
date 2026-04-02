@@ -102,9 +102,11 @@ public class UtilisateurService {
     }
 
 
-    public Optional<Utilisateur> verifierExistence(String nom, String prenom, Date date) {
-        return utilisateurRepository.findByNomAndPrenomAndDateNaissance(nom, prenom, date);
-    }
+    public Optional<Utilisateur> verifierExistence(String nom, String prenom, Date dateNaissance) {
+    return utilisateurRepository.findByNomIgnoreCaseAndPrenomIgnoreCaseAndDateNaissance(
+        nom, prenom, dateNaissance
+    );
+}
 
     public List<Utilisateur> listerTousLesUtilisateurs() {
         return utilisateurRepository.findAll();

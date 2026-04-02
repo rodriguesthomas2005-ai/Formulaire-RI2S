@@ -11,9 +11,7 @@ import Formulaire.entity.Utilisateur;
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
-    Optional<Utilisateur> findByNomAndPrenomAndDateNaissance(
-        String nom, 
-        String prenom, 
-        Date dateNaissance
+    Optional<Utilisateur> findByNomIgnoreCaseAndPrenomIgnoreCaseAndDateNaissance(
+        String nom, String prenom, Date dateNaissance
     );
 }
