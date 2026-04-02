@@ -37,7 +37,10 @@ public Industriel inscrireIndustriel(Industriel industriel, DossierCandidature d
         dossier.setIndustriel(industriel);
         industriel.getDossiers().add(dossier);
     }
-
+    if (fichier != null) {
+    fichier.setDossier(dossier);
+    dossier.getFichiers().add(fichier); // <--- CETTE LIGNE est nécessaire pour le retour JSON
+    }
     return industrielRepository.save(industriel);
 }
 
