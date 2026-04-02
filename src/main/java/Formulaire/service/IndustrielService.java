@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 import Formulaire.entity.DossierCandidature;
 import Formulaire.entity.Fichier;
 import Formulaire.entity.Industriel;
-import Formulaire.entity.Utilisateur;
+import Formulaire.entity.PersonneContactIndustriel;
 import Formulaire.repository.DossierCandidatureRepository;
 import Formulaire.repository.FichierRepository;
 import Formulaire.repository.IndustrielRepository;
-import jakarta.transaction.Transactional;
+import Formulaire.repository.PersonneContactIndustrielRepository;
 import Formulaire.repository.UtilisateurRepository;
+import jakarta.transaction.Transactional;
 @Service
 public class IndustrielService {
 
@@ -21,26 +22,24 @@ public class IndustrielService {
     @Autowired private DossierCandidatureRepository dossierRepository;
     @Autowired private FichierRepository fichierRepository;
     @Autowired private UtilisateurRepository utilisateurRepository;
+    @Autowired private PersonneContactIndustrielRepository personneContactRepository;
 
     @Transactional
-    public Industriel inscrireIndustriel(Industriel industriel, DossierCandidature dossier, Fichier fichier, Long idUser) {
-        Utilisateur user = utilisateurRepository.findById(idUser)
-            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
-        
-        industriel.setIdUtilisateur(idUser);
+public Industriel inscrireIndustriel(Industriel industriel, DossierCandidature dossier, Fichier fichier, Long idUser) {
+    // 1. Trouver le profil de contact existant pour cet utilisateur
+    PersonneContactIndustriel contact = personneContactRepository.findById(idUser)
+            .orElseThrow(() -> new RuntimeException("Cet utilisateur n'est pas déclaré comme contact industriel"));
+    
+    // 2. Relier l'industriel au contact
+    industriel.setPersonneContact(contact);
 
-        if (dossier != null) {
-            dossier.setIndustriel(industriel);
-            industriel.getDossiers().add(dossier); 
-            
-            if (fichier != null) {
-                fichier.setDossier(dossier);
-                dossier.getFichiers().add(fichier);
-            }
-        }
-
-        return industrielRepository.save(industriel);
+    if (dossier != null) {
+        dossier.setIndustriel(industriel);
+        industriel.getDossiers().add(dossier);
     }
+
+    return industrielRepository.save(industriel);
+}
 
     @Transactional
     public List<Industriel> listerTout() {

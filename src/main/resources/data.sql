@@ -17,7 +17,8 @@ INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissan
 VALUES (3, 'Lemaire', 'Sophie',  true, '1982-03-15', 81200);
 
 INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
-VALUES (4, 'Ravi', 'Clémentine',  true, '2000-01-01', 81100);
+VALUES (4, 'Ravi', 'Clémentine', true, '2000-01-01', 81100);
+
 
 -- 3. LES EXPERIMENTATIONS
 INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
@@ -70,11 +71,11 @@ INSERT INTO demande_inscription_expe (id_utilisateur, id_experimentation, role_p
 VALUES (2, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
 
 -- 7. PERSONNE CONTACT INDUSTRIEL 
-INSERT INTO personne_contact_industriel (id_utilisateur, fonction) VALUES (4, 'Fondatrice MedTech');
+INSERT INTO personne_contact_industriel (id_utilisateur, fonction) 
+VALUES (4, 'Directrice Innovation');
 
 INSERT INTO industriel (
-    id_industriel,
-    id_utilisateur, 
+    id_personne_contact, 
     nom_entreprise, 
     siret, 
     mail_industriel, 
@@ -84,7 +85,6 @@ INSERT INTO industriel (
     site_web, 
     autre_lien
 ) VALUES (
-    1,
     4, 
     'MedTech Vision', 
     88877766600011, 
@@ -141,4 +141,4 @@ INSERT INTO fichier (
 );
 
 -- 10. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
-ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 4;
+ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 5;
