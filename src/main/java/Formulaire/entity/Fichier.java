@@ -36,9 +36,6 @@ public class Fichier {
     @Column(nullable = false)
     private String type;
 
-    @NonNull
-    @Column(nullable = false)
-    private String statutScan;
 
     @NonNull
     @Column(nullable = false)

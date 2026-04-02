@@ -123,15 +123,13 @@ INSERT INTO dossier_candidature (
 );
 
 -- 5. LE FICHIER (Lié au dossier 5)
-INSERT INTO fichier (id_dossier, nom_fichier, url, type, statut_scan, taille, donnees) 
+INSERT INTO fichier (id_dossier, nom_fichier, type, taille, donnees) 
 VALUES (
     1, 
     'schema_technique.pdf', 
-    'internal_blob', 
     'application/pdf', 
-    'CLEAN', 
     '2.4 MB', 
-    '\x255044462d312e34'
+    '\x25504446' -- Exemple binaire
 );
 
 -- 10. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
