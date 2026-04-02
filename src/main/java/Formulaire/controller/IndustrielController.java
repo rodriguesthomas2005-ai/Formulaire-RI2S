@@ -45,6 +45,22 @@ public class IndustrielController {
         return ResponseEntity.ok(industrielService.trouverParId(id));
     }
 
+    @PostMapping(value = "/dossier/{idDossier}/fichiers", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<List<Fichier>> ajouterFichiersAuDossier(
+            @PathVariable Long idDossier,
+            @RequestPart("fichiers") List<MultipartFile> files) throws Exception {
+        
+        // Vérification de la limite (Optionnel mais conseillé)
+        if (files.size() > 5) {
+            throw new RuntimeException("Vous ne pouvez pas envoyer plus de 5 fichiers.");
+        }
+
+        // Appel du service pour traiter la liste
+        List<Fichier> result = industrielService.ajouterFichiers(idDossier, files);
+        
+        return ResponseEntity.ok(result);
+    }
+
     @Operation(summary = "Inscrire un industriel avec son dossier et un fichier PDF")
     @PostMapping(value = "/inscription/{idUser}/industriel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Industriel> ajouterDossierIndustriel(
