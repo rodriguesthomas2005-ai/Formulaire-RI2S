@@ -20,6 +20,7 @@ import Formulaire.entity.Fichier;
 import Formulaire.entity.Industriel;
 import Formulaire.repository.FichierRepository;
 import Formulaire.service.IndustrielService;
+import io.swagger.v3.oas.annotations.Operation;
 import tools.jackson.databind.ObjectMapper;
 
 @RestController
@@ -32,16 +33,19 @@ public class IndustrielController {
     @Autowired
     private IndustrielService industrielService;
 
+    @Operation(summary = "Lister tous les industriels inscrits")
     @GetMapping
     public ResponseEntity<List<Industriel>> listerTousLesIndustriels() {
         return ResponseEntity.ok(industrielService.listerTout());
     }
 
+    @Operation(summary = "Optenir les détails d'un industriel spécifique par son ID")
     @GetMapping("/{id}")
     public ResponseEntity<Industriel> recupererUnIndustriel(@PathVariable Long id) {
         return ResponseEntity.ok(industrielService.trouverParId(id));
     }
 
+    @Operation(summary = "Inscrire un industriel avec son dossier et un fichier PDF")
     @PostMapping(value = "/inscription/{idUser}/industriel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Industriel> ajouterDossierIndustriel(
             @PathVariable Long idUser,
@@ -65,6 +69,8 @@ public class IndustrielController {
         Industriel result = industrielService.inscrireIndustriel(industriel, dossier, fichierEntity, idUser);
         return ResponseEntity.ok(result);
     }
+
+    @Operation(summary = "Télécharger un fichier associé à un industriel par l'ID du fichier")
     @GetMapping("/fichiers/{id}/download")
     public ResponseEntity<byte[]> recupererFichier(@PathVariable Long id) {
         // 1. Aller chercher le fichier en base de données
