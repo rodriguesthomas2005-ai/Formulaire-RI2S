@@ -74,6 +74,7 @@ VALUES (2, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
 INSERT INTO personne_contact_industriel (id_utilisateur, fonction) 
 VALUES (4, 'Directrice Innovation');
 
+
 INSERT INTO industriel (
     id_personne_contact, 
     nom_entreprise, 
@@ -85,7 +86,7 @@ INSERT INTO industriel (
     site_web, 
     autre_lien
 ) VALUES (
-    4, 
+    4,
     'MedTech Vision', 
     88877766600011, 
     'contact@medtech-vision.fr', 

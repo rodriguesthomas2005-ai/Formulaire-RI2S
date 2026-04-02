@@ -32,7 +32,7 @@ public class Industriel {
     private Long idIndustriel;
 
     @OneToOne
-    @JoinColumn(name = "id_personne_contact", referencedColumnName = "idUtilisateur")
+    @JoinColumn(name = "id_personne_contact") 
     private PersonneContactIndustriel personneContact;
 
     @NonNull
