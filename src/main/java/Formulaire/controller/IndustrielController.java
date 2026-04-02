@@ -25,7 +25,7 @@ import tools.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api/industriels")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class IndustrielController {
 
     @Autowired
