@@ -66,10 +66,10 @@ public class UtilisateurController {
                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateNaissance) {
         Optional<Utilisateur> user = utilisateurService.verifierExistence(nom, prenom, dateNaissance);
         if (user.isPresent()){
-            if (typeutilisateur =="profilpro" && user.get().getProfilPro() == null) {
+            if ("profilpro".equals(typeutilisateur) && user.get().getProfilPro() == null) {
                 return ResponseEntity.ok(Map.of("existe", false, "id", user.get().getIdUtilisateur()));
             }
-            else if (typeutilisateur =="profilnonpro" && user.get().getProfilNonPro() == null) {
+            else if ("profilnonpro".equals(typeutilisateur) && user.get().getProfilNonPro() == null) {
                 return ResponseEntity.ok(Map.of("existe", false, "id", user.get().getIdUtilisateur()));
             }
             return ResponseEntity.ok(Map.of("existe", true, "id", user.get().getIdUtilisateur()));
