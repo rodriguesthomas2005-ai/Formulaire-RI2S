@@ -45,44 +45,41 @@ public class IndustrielController {
         return ResponseEntity.ok(industrielService.trouverParId(id));
     }
 
-    @PostMapping(value = "/dossier/{idDossier}/fichiers", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<List<Fichier>> ajouterFichiersAuDossier(
-            @PathVariable Long idDossier,
-            @RequestPart("fichiers") List<MultipartFile> files) throws Exception {
-        
-        // Vérification de la limite (Optionnel mais conseillé)
-        if (files.size() > 5) {
-            throw new RuntimeException("Vous ne pouvez pas envoyer plus de 5 fichiers.");
-        }
-
-        // Appel du service pour traiter la liste
-        List<Fichier> result = industrielService.ajouterFichiers(idDossier, files);
-        
-        return ResponseEntity.ok(result);
-    }
-
-    @Operation(summary = "Inscrire un industriel avec son dossier et un fichier PDF")
+    @Operation(summary = "Inscrire un industriel avec son dossier et plusieurs fichiers")
     @PostMapping(value = "/inscription/{idUser}/industriel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Industriel> ajouterDossierIndustriel(
             @PathVariable Long idUser,
             @RequestPart("industriel") String industrielJson, 
             @RequestPart("dossierCandidature") String dossierJson,
-            @RequestPart("fichier") MultipartFile file) throws Exception {
+            @RequestPart("fichiers") MultipartFile[] files) throws Exception { // Changement ici : Tableau de fichiers
 
-        // 1. Convertir les Strings JSON en objets Java (via ObjectMapper)
+        // 1. Convertir les Strings JSON en objets Java
         ObjectMapper mapper = new ObjectMapper();
         Industriel industriel = mapper.readValue(industrielJson, Industriel.class);
         DossierCandidature dossier = mapper.readValue(dossierJson, DossierCandidature.class);
 
-        // 2. Créer l'objet Fichier avec le binaire
-        Fichier fichierEntity = new Fichier();
-        fichierEntity.setNomFichier(file.getOriginalFilename());
-        fichierEntity.setDonnees(file.getBytes()); // On récupère les octets ici !
-        fichierEntity.setType(file.getContentType());
-        fichierEntity.setTaille(file.getSize() + " bytes");
+        // 2. Boucler sur les fichiers pour créer la liste d'entités
+        if (files != null) {
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    Fichier fichierEntity = new Fichier();
+                    fichierEntity.setNomFichier(file.getOriginalFilename());
+                    fichierEntity.setDonnees(file.getBytes());
+                    fichierEntity.setType(file.getContentType());
+                    fichierEntity.setTaille(file.getSize() + " bytes");
+                    
+                    // Lier le fichier au dossier
+                    fichierEntity.setDossier(dossier);
+                    // Ajouter à la liste du dossier (pour que Hibernate le voit)
+                    dossier.getFichiers().add(fichierEntity);
+                }
+            }
+        }
 
-        // 3. Appeler le service
-        Industriel result = industrielService.inscrireIndustriel(industriel, dossier, fichierEntity, idUser);
+        // 3. Appeler le service (on passe l'objet industriel qui contient le dossier, qui contient lui-même les fichiers)
+        // Note : On n'a plus besoin de passer 'fichierEntity' seul en paramètre
+        Industriel result = industrielService.inscrireIndustriel(industriel, dossier, idUser);
+        
         return ResponseEntity.ok(result);
     }
 
