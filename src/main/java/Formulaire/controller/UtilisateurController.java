@@ -62,10 +62,16 @@ public class UtilisateurController {
     
     @Operation(summary = "Vérifier l'existence d'un utilisateur à partir de son nom, prénom et date de naissance")
     @GetMapping("/verification")
-    public ResponseEntity<?> verifier(@RequestParam String nom, @RequestParam String prenom, 
+    public ResponseEntity<?> verifier(@RequestParam String nom, @RequestParam String prenom, @RequestParam String typeutilisateur,
                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateNaissance) {
         Optional<Utilisateur> user = utilisateurService.verifierExistence(nom, prenom, dateNaissance);
-        if (user.isPresent()) {
+        if (user.isPresent()){
+            if (typeutilisateur =="profilpro" && user.get().getProfilPro() == null) {
+                return ResponseEntity.ok(Map.of("existe", false, "id", user.get().getIdUtilisateur()));
+            }
+            else if (typeutilisateur =="profilnonpro" && user.get().getProfilNonPro() == null) {
+                return ResponseEntity.ok(Map.of("existe", false, "id", user.get().getIdUtilisateur()));
+            }
             return ResponseEntity.ok(Map.of("existe", true, "id", user.get().getIdUtilisateur()));
         }
         return ResponseEntity.ok(Map.of("existe", false));
