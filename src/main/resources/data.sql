@@ -143,3 +143,6 @@ INSERT INTO fichier (
 
 -- 10. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
 ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 5;
+ALTER TABLE industriel ALTER COLUMN id_industriel RESTART WITH 2;
+ALTER TABLE dossier_candidature ALTER COLUMN id_candidature RESTART WITH 2;
+ALTER TABLE fichier ALTER COLUMN id_fichier RESTART WITH 2;
