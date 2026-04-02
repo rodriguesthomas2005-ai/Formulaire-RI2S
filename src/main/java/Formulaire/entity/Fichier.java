@@ -1,5 +1,9 @@
 package Formulaire.entity;
 
+import java.sql.Types;
+
+import org.hibernate.annotations.JdbcTypeCode;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -14,7 +18,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
 @Entity
 @Table(name = "Fichier")
 @Data
@@ -29,6 +32,7 @@ public class Fichier {
     private String nomFichier;
 
     @Lob
+    @JdbcTypeCode(Types.BINARY)
     @Column(name = "donnees", columnDefinition = "BYTEA")
     private byte[] donnees;
 
