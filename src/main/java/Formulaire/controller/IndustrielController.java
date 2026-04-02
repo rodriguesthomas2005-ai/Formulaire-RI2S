@@ -3,6 +3,7 @@ package Formulaire.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import Formulaire.entity.DossierCandidature;
 import Formulaire.entity.Fichier;
 import Formulaire.entity.Industriel;
+import Formulaire.repository.FichierRepository;
 import Formulaire.service.IndustrielService;
 import tools.jackson.databind.ObjectMapper;
 
@@ -25,6 +27,8 @@ import tools.jackson.databind.ObjectMapper;
 @CrossOrigin(origins = "*")
 public class IndustrielController {
 
+    @Autowired
+    private FichierRepository fichierRepository;
     @Autowired
     private IndustrielService industrielService;
 
@@ -60,5 +64,17 @@ public class IndustrielController {
         // 3. Appeler le service
         Industriel result = industrielService.inscrireIndustriel(industriel, dossier, fichierEntity, idUser);
         return ResponseEntity.ok(result);
+    }
+    @GetMapping("/fichiers/{id}/download")
+    public ResponseEntity<byte[]> recupererFichier(@PathVariable Long id) {
+        // 1. Aller chercher le fichier en base de données
+        Fichier fichier = fichierRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Fichier introuvable avec l'id : " + id));
+
+        // 2. Préparer les en-têtes HTTP pour le téléchargement
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fichier.getNomFichier() + "\"")
+                .contentType(MediaType.parseMediaType(fichier.getType())) // ex: application/pdf
+                .body(fichier.getDonnees()); // On envoie le tableau d'octets (BLOB)
     }
 }
