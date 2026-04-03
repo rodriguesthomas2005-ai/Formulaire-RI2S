@@ -71,8 +71,8 @@ INSERT INTO demande_inscription_expe (id_utilisateur, id_experimentation, role_p
 VALUES (2, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
 
 -- 7. PERSONNE CONTACT INDUSTRIEL 
-INSERT INTO personne_contact_industriel (id_utilisateur, fonction) 
-VALUES (4, 'Directrice Innovation');
+INSERT INTO personne_contact_industriel (id_utilisateur, fonction, email_pers_contact, telephone_pers_contact) 
+VALUES (4, 'Directrice Innovation', 'clementine.ravi@medtech-vision.fr', '0612345678');
 
 
 INSERT INTO industriel (

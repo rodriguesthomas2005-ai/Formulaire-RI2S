@@ -87,6 +87,20 @@ public class UtilisateurService {
     }
 
     @Transactional
+    public PersonneContactIndustriel ajouterContactIndustriel(Long idUtilisateur, String fonction, String email, String tel) {
+        Utilisateur user = utilisateurRepository.findById(idUtilisateur)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        PersonneContactIndustriel contact = new PersonneContactIndustriel();
+        contact.setUtilisateur(user);
+        contact.setFonction(fonction);
+        contact.setEmailPersContact(email);
+        contact.setTelephonePersContact(tel);
+
+        return PersonneContactIndustrielRepository.save(contact);
+    }
+
+    @Transactional
     public DemandeInscriptionExpe ajouterMissionAUtilisateur(Long idUser, Long idExpe, Role role) {
         Utilisateur user = utilisateurRepository.findById(idUser).orElseThrow();
         Experimentation expe = experimentationRepository.findById(idExpe).orElseThrow();

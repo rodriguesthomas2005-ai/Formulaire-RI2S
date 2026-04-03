@@ -26,6 +26,14 @@ public class PersonneContactIndustriel {
     @Column(nullable = false)
     private String fonction;
 
+    @NonNull
+    @Column(nullable = false)
+    private String emailPersContact;
+
+    @NonNull
+    @Column(nullable = false)
+    private String telephonePersContact;
+
     @OneToOne
     @MapsId 
     @JoinColumn(name = "id_utilisateur", nullable = false)
