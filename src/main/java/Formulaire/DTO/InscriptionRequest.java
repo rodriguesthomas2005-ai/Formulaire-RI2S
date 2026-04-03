@@ -53,5 +53,12 @@ public class InscriptionRequest {
         private String connaissanceRI2S;
         private String infoComplementaires;
     }
+
+    @Data
+    public static class ContactIndustrielDTO {
+        private String fonction;
+        private String emailPersContact;
+        private String telephonePersContact;
+    }
 }
     

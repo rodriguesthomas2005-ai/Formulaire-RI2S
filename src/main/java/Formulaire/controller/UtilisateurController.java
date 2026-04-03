@@ -54,16 +54,19 @@ public class UtilisateurController {
         return ResponseEntity.ok(utilisateurService.ajouterProfilNonPro(id, dto));
     }
 
-    @Operation(summary = "Ajouter le profil contact industriel à un utilisateur existant (via Params)")
+    @Operation(summary = "Ajouter le profil contact industriel via JSON")
     @PostMapping("/{id}/profil-industriel")
     public ResponseEntity<?> upgradeToIndustriel(
             @PathVariable Long id, 
-            @RequestParam String fonction,
-            @RequestParam String email,
-            @RequestParam String tel) {
+            @RequestBody InscriptionRequest.ContactIndustrielDTO dto) {
         
-        // Appel de ta nouvelle méthode de service
-        return ResponseEntity.ok(utilisateurService.ajouterContactIndustriel(id, fonction, email, tel));
+        // On passe les données du DTO au service
+        return ResponseEntity.ok(utilisateurService.ajouterContactIndustriel(
+            id, 
+            dto.getFonction(), 
+            dto.getEmailPersContact(), 
+            dto.getTelephonePersContact()
+        ));
     }
 
     @Operation(summary = "Ajouter une mission à un utilisateur pour une expérimentation donnée")
