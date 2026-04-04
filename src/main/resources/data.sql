@@ -25,6 +25,11 @@ INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_
 VALUES (1, 'Presage',  true, false, 'Outils d’intelligence artificielle qui prédit les risques d’hospitalisation des personnes âgées, lutte contre les ruptures de parcours et soutien les aidants.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://presage.care/wp-content/uploads/2021/04/Groupe-12162@2x-192x300.png');
 INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
 VALUES (2, 'Telegragik',  true, false, 'Projet visant à développer et éprouver des nouveaux signaux de détection d’une perte d’autonomie chez les personnes âgées, grâce à des capteurs installés à domicile. Les capteurs permettront également de sécuriser les bénéficiaires, en alertant en cas de détection d’inactivité anormale.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://www.telegrafik.fr/wp-content/uploads/2024/12/logo-telegrafik.svg');
+INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
+VALUES (3, 'ExpeAvecProEtAidant',  true, true, 'Projet pour aider les professionnels, grâce à des capteurs installés à domicile. Les capteurs permettront également de sécuriser les bénéficiaires, en alertant en cas de détection d’inactivité anormale.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://www.telegrafik.fr/wp-content/uploads/2024/12/logo-telegrafik.svg');
+INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
+VALUES (4, 'ExpeAvecProSansAidant',  false, true, 'Projet pour aider les professionnels,mais pas les aidants.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://www.telegrafik.fr/wp-content/uploads/2024/12/logo-telegrafik.svg');
+
 
 -- 4. PROFIL NON-PROFESSIONNEL (Yvette et Marc)
 INSERT INTO non_professionnel (id_utilisateur, participation_expe, email_non_pro, telephone_non_pro) VALUES (1, 'OUI', 'yvette.boulanger@gmail.com', '0563112233');
