@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,9 +36,9 @@ public class DossierInscriptionExpe {
     @JoinColumn(name = "id_professionnel")
     private Professionnel professionnelReferent;
 
-    @OneToMany(mappedBy = "dossier", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "dossier-participants")
-    private List<DemandeInscriptionExpe> participants = new ArrayList<>();
+    @OneToMany(mappedBy = "dossier", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // <-- Ajoute fetch = FetchType.EAGER
+@JsonManagedReference(value = "dossier-participants")
+private List<DemandeInscriptionExpe> participants = new ArrayList<>();
 
     private LocalDateTime dateCreation = LocalDateTime.now();
 }

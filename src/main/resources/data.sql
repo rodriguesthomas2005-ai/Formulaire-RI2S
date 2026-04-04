@@ -1,186 +1,48 @@
--- 1. NETTOYAGE DES TABLES (Ordre important pour les clés étrangères)
-TRUNCATE TABLE demande_inscription_expe CASCADE;
-TRUNCATE TABLE professionnel CASCADE;
-TRUNCATE TABLE non_professionnel CASCADE;
-TRUNCATE TABLE personne_contact_industriel CASCADE;
-TRUNCATE TABLE utilisateur CASCADE;
-TRUNCATE TABLE experimentation CASCADE;
-
--- 2. LES UTILISATEURS
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
-VALUES (1, 'Boulanger', 'Yvette', true, '1945-05-12', 81000);
-
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
-VALUES (2, 'Boulanger', 'Marc', true, '1975-10-20', 81100);
-
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
-VALUES (3, 'Lemaire', 'Sophie',  true, '1982-03-15', 81200);
-
-INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) 
-VALUES (4, 'Ravi', 'Clémentine', true, '2000-01-01', 81100);
-
+INSERT INTO utilisateur (id_utilisateur, nom, prenom, consentement, date_naissance, code_postal) VALUES 
+(1, 'Boulanger', 'Yvette', true, '1945-05-12', 81000),
+(2, 'Boulanger', 'Marc', true, '1975-10-20', 81100),
+(3, 'Lemaire', 'Sophie', true, '1982-03-15', 81200),
+(4, 'Ravi', 'Clémentine', true, '2000-01-01', 81100);
 
 -- 3. LES EXPERIMENTATIONS
-INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
-VALUES (1, 'Presage',  true, false, 'Outils d’intelligence artificielle qui prédit les risques d’hospitalisation des personnes âgées, lutte contre les ruptures de parcours et soutien les aidants.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://presage.care/wp-content/uploads/2021/04/Groupe-12162@2x-192x300.png');
-INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
-VALUES (2, 'Telegragik',  true, false, 'Projet visant à développer et éprouver des nouveaux signaux de détection d’une perte d’autonomie chez les personnes âgées, grâce à des capteurs installés à domicile. Les capteurs permettront également de sécuriser les bénéficiaires, en alertant en cas de détection d’inactivité anormale.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://www.telegrafik.fr/wp-content/uploads/2024/12/logo-telegrafik.svg');
-INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
-VALUES (3, 'ExpeAvecProEtAidant',  true, true, 'Projet pour aider les professionnels, grâce à des capteurs installés à domicile. Les capteurs permettront également de sécuriser les bénéficiaires, en alertant en cas de détection d’inactivité anormale.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://www.telegrafik.fr/wp-content/uploads/2024/12/logo-telegrafik.svg');
-INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) 
-VALUES (4, 'ExpeAvecProSansAidant',  false, true, 'Projet pour aider les professionnels,mais pas les aidants.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://www.telegrafik.fr/wp-content/uploads/2024/12/logo-telegrafik.svg');
+INSERT INTO experimentation (id_experimentation, nom_experimentation, necessite_aidant, necessite_pro, description, date_debut_expe, date_fin_expe, url_image) VALUES 
+(1, 'Presage', true, false, 'Outils d’IA pour prédire les risques d’hospitalisation.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://presage.care/logo.png'),
+(2, 'Telegragik', true, false, 'Détection de perte d’autonomie via capteurs.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://telegrafik.fr/logo.svg'),
+(3, 'ExpeAvecProEtAidant', true, true, 'Projet complet avec suivi pro et aidant.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://img.png'),
+(4, 'ExpeAvecProSansAidant', false, true, 'Projet pour professionnels uniquement.', '2026-06-01 10:00:00', '2026-06-30 10:00:00', 'https://img.png');
 
+-- 4. PROFILS NON-PRO (Yvette et Marc)
+INSERT INTO non_professionnel (id_utilisateur, participation_expe, email_non_pro, telephone_non_pro) VALUES 
+(1, 'OUI', 'yvette.boulanger@gmail.com', '0563112233'),
+(2, 'OUI', 'marc.boulanger@gmail.com', '0612345678');
 
--- 4. PROFIL NON-PROFESSIONNEL (Yvette et Marc)
-INSERT INTO non_professionnel (id_utilisateur, participation_expe, email_non_pro, telephone_non_pro) VALUES (1, 'OUI', 'yvette.boulanger@gmail.com', '0563112233');
-INSERT INTO non_professionnel (id_utilisateur, participation_expe, email_non_pro, telephone_non_pro) VALUES (2, 'OUI', 'marc.boulanger@gmail.com', '0612345678');
+INSERT INTO utilisateur_moments (id_utilisateur, moment) VALUES 
+(1, 'MATIN'), (1, 'SOIR'), (2, 'APRES_MIDI');
 
-INSERT INTO utilisateur_moments (id_utilisateur, moment) VALUES (1, 'MATIN');
-INSERT INTO utilisateur_moments (id_utilisateur, moment) VALUES (1, 'SOIR');
-INSERT INTO utilisateur_moments (id_utilisateur, moment) VALUES (2, 'APRES_MIDI');
+-- 5. PROFIL PROFESSIONNEL (Sophie)
+INSERT INTO professionnel (id_utilisateur, nom_fonction, structure, participation_expe, profession, ville_etablissement, zone_geo_patient, milieu_professionnel, info_complementaires, connaissanceri2s, email_pro, telephone_pro) 
+VALUES (3, 'Médecin Généraliste', 'Cabinet Médical Castres', 'OUI', 'Médecin', 'Castres', 'Tarn Sud', 'Libéral', 'Disponible jeudi', 'Bouche à oreille', 'sophie.lemaire@sante.fr', '0563445566');
 
--- 5. PROFIL PROFESSIONNEL (Sophie) - AVEC TES NOUVEAUX CHAMPS
-INSERT INTO professionnel (
-    id_utilisateur, 
-    nom_fonction, 
-    structure, 
-    participation_expe, 
-    profession, 
-    ville_etablissement, 
-    zone_geo_patient, 
-    milieu_professionnel, 
-    info_complementaires, 
-    connaissanceri2s, 
-    email_pro, 
-    telephone_pro
-) VALUES (
-    3, 
-    'Médecin Généraliste', 
-    'Cabinet Médical Castres', 
-    'OUI', 
-    'Médecin', 
-    'Castres', 
-    'Tarn Sud', 
-    'Libéral', 
-    'Disponible le jeudi après-midi pour les suivis.', 
-    'Bouche à oreille',
-    'sophie.lemaire@sante.fr',
-    '0563445566'
-);
+-- 6. LE DOSSIER DE GROUPE (Indispensable pour lier Senior et Aidant)
+INSERT INTO dossier_inscription_expe (id_dossier, id_expe, id_professionnel, date_creation) 
+VALUES (1, 1, null, CURRENT_TIMESTAMP);
 
--- 6. LES INSCRIPTIONS AUX MISSIONS
-INSERT INTO demande_inscription_expe (id_utilisateur, id_experimentation, role_pour_cette_expe, statut, date_demande) 
-VALUES (1, 1, 'SENIOR', 'EN_ATTENTE', CURRENT_TIMESTAMP);
+-- 7. LES INSCRIPTIONS (Liées au dossier 1)
+INSERT INTO demande_inscription_expe (id_utilisateur, id_experimentation, id_dossier, role_pour_cette_expe, statut, date_demande) VALUES 
+(1, 1, 1, 'SENIOR', 'EN_ATTENTE', CURRENT_TIMESTAMP),
+(2, 1, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
 
-INSERT INTO demande_inscription_expe (id_utilisateur, id_experimentation, role_pour_cette_expe, statut, date_demande) 
-VALUES (2, 1, 'AIDANT', 'ACCEPTEE', CURRENT_TIMESTAMP);
-
--- 7. PERSONNE CONTACT INDUSTRIEL 
+-- 8. INDUSTRIEL & CONTACT
 INSERT INTO personne_contact_industriel (id_utilisateur, fonction, email_pers_contact, telephone_pers_contact) 
 VALUES (4, 'Directrice Innovation', 'clementine.ravi@medtech-vision.fr', '0612345678');
 
+INSERT INTO industriel (id_personne_contact, nom_entreprise, siret, adresse_industriel, date_creation, effectif, structure_juridique, site_web, autre_lien) 
+VALUES (4, 'MedTech Vision', 88877766600011, '123 Rue Tech, Toulouse', '2024-02-15', 8, 'SAS', 'www.medtech.fr', 'linkedin.com/medtech');
 
-INSERT INTO industriel (
-    id_personne_contact, 
-    nom_entreprise, 
-    siret, 
-    adresse_industriel, 
-    date_creation, 
-    effectif, 
-    structure_juridique, 
-    site_web, 
-    autre_lien
-) VALUES (
-    4,
-    'MedTech Vision', 
-    88877766600011, 
-    '123 Rue de la Technologie, 31000 Toulouse', 
-    '2024-02-15', 
-    8, 
-    'SAS', 
-    'www.medtech-vision.fr', 
-    'linkedin.com/company/medtechvision'
-);
+-- 9. DOSSIER CANDIDATURE (Respect des fautes de frappe Java)
+INSERT INTO dossier_candidature (id_candidature, id_industriel, statue_dossier, nom_dossier, nom_solution, description_solution, problematique, typr_innovation, benefices, caractere_innovant, coconception, implication, comite, marche, modele_eco, commercialisation, financement, concurrents, equipe, accompagnement, tiers_lieux, pourquoi_ri2s, trl, justification_trl, dispositif_medical, justification_dispositif_medical, besoins, description_besoins, questios_projet, terrain_experimentation, conclusion) 
+VALUES (1, 4, 'EN_ATTENTE', 'Dossier V1', 'Solution IA', 'Algorithme prédiction', 'Manque suivi', 'LOGICIEL', 'Réduction hospit', 'Unique', 'OUI', 'FORTE', true, 'France', 'Abonnement', 'B2B', 'Fonds', 'Concur X', '2 pers', 'Incubateur', false, 'Expertise', 6, 'Testé', true, 'En cours', 'Accès patients', '50 testeurs', 'Flux ?', 'EHPAD', 'Prêt');
 
--- 4. LE DOSSIER DE CANDIDATURE 
-INSERT INTO dossier_candidature (
-    id_candidature, 
-    id_industriel, 
-    statue_dossier,
-    nom_dossier,
-    nom_solution, 
-    description_solution, 
-    problematique,
-    typr_innovation, -- Ta faute de frappe en Java
-    benefices,
-    caractere_innovant,
-    coconception,
-    implication,
-    comite,
-    marche,
-    modele_eco,
-    commercialisation,
-    financement,
-    concurrents,
-    equipe,
-    accompagnement,
-    tiers_lieux,
-    pourquoi_ri2s,
-    trl,
-    justification_trl,
-    dispositif_medical,
-    justification_dispositif_medical,
-    besoins,
-    description_besoins,
-    questios_projet, -- Ta faute de frappe en Java
-    terrain_experimentation,
-    conclusion
-) VALUES (
-    1, 
-    1, 
-    'EN_ATTENTE',
-    'Dossier MedTech V1',
-    'Solution IA Diabète', 
-    'Algorithme de prédiction des crises.', 
-    'Manque de suivi temps réel.',
-    'LOGICIEL',
-    'Réduction des hospitalisations.',
-    'IA Prédictive unique.',
-    'OUI',
-    'FORTE',
-    true,
-    'France',
-    'Abonnement',
-    'B2B',
-    'Levée de fonds',
-    'Concurrent X',
-    '2 data scientists',
-    'Incubateur',
-    false,
-    'Expertise terrain',
-    6,
-    'Prototype testé',
-    true,
-    'Certification en cours',
-    'Accès aux patients',
-    'Besoin de 50 testeurs',
-    'Comment intégrer le flux ?',
-    'EHPAD Toulouse',
-    'Projet prêt à démarrer'
-);
-
--- 5. LE FICHIER (Lié au dossier 5)
+-- 10. FICHIER
 INSERT INTO fichier (id_dossier, nom_fichier, type, taille, donnees) 
-VALUES (
-    1, 
-    'schema_technique.pdf', 
-    'application/pdf', 
-    '2.4 MB', 
-    '\x25504446' -- Exemple binaire
-);
-
--- 10. REGLAGE SEQUENCE (Pour que les prochains IDs auto-générés ne créent pas de conflit)
-ALTER TABLE utilisateur ALTER COLUMN id_utilisateur RESTART WITH 5;
-ALTER TABLE industriel ALTER COLUMN id_industriel RESTART WITH 2;
-ALTER TABLE dossier_candidature ALTER COLUMN id_candidature RESTART WITH 2;
-ALTER TABLE fichier ALTER COLUMN id_fichier RESTART WITH 2;
+VALUES (1, 'schema.pdf', 'application/pdf', '2.4 MB', '\x25504446');
