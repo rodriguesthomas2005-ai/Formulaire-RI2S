@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Formulaire.DTO.InscriptionRequest.DemandeExpeDTO;
+import Formulaire.DTO.InscriptionRequest.DossierGroupageRequest;
 import Formulaire.DTO.InscriptionRequest.UpgradeNonProDTO;
 import Formulaire.DTO.InscriptionRequest.UpgradeProDTO;
 import Formulaire.entity.DemandeInscriptionExpe;
@@ -34,8 +35,10 @@ public class UtilisateurService {
     @Autowired private ProfessionnelRepository professionnelRepository;
     @Autowired private NonProfessionnelRepository nonProfessionnelRepository;
     @Autowired private ExperimentationRepository experimentationRepository;
-    @Autowired private DemandeInscriptionExpeRepository demandeRepository;
+    @Autowired private DemandeInscriptionExpeRepository demandeInscriptionExpeRepository;
     @Autowired private PersonneContactIndustrielRepository PersonneContactIndustrielRepository;
+    @Autowired private DossierInscriptionExpeRepository dossierInscriptionExpeRepository;
+
 
 
    @Transactional
@@ -59,6 +62,48 @@ public Utilisateur inscrireUtilisateur(Utilisateur utilisateur, Professionnel pr
     }
     return savedUser;
 }
+
+    @Transactional
+public DossierInscriptionExpe finaliserDossierGroupe(DossierGroupageRequest request) {
+    // 1. Vérification de l'expérimentation
+    Experimentation expe = experimentationRepository.findById(request.getIdExpe())
+            .orElseThrow(() -> new RuntimeException("Expérimentation non trouvée"));
+
+    // Validation des contraintes (Aidant obligatoire ?)
+    if (Boolean.TRUE.equals(expe.getNecessiteAidant()) && request.getIdAidant() == null) {
+        throw new RuntimeException("Cette mission nécessite obligatoirement un aidant.");
+    }
+
+    // 2. Création du Dossier
+    DossierInscriptionExpe dossier = new DossierInscriptionExpe();
+    dossier.setExperimentation(expe);
+    
+    if (request.getIdPro() != null) {
+        Professionnel pro = professionnelRepository.findById(request.getIdPro())
+                .orElseThrow(() -> new RuntimeException("Professionnel non trouvé"));
+        dossier.setProfessionnelReferent(pro);
+    }
+    // Utilisation du bon nom de repository injecté en haut : dossierInscriptionExpeRepository
+    DossierInscriptionExpe savedDossier = dossierInscriptionExpeRepository.save(dossier);
+
+    // 3. Liaison des demandes individuelles
+    rattacherDemande(request.getIdSenior(), request.getIdExpe(), savedDossier);
+    if (request.getIdAidant() != null) {
+        rattacherDemande(request.getIdAidant(), request.getIdExpe(), savedDossier);
+    }
+
+    return savedDossier;
+}
+
+    private void rattacherDemande(Long idUser, Long idExpe, DossierInscriptionExpe dossier) {
+        // On récupère la demande que l'utilisateur a créée lors de son inscription individuelle
+        DemandeInscriptionExpe demande = demandeInscriptionExpeRepository
+            .findByUtilisateurIdUtilisateurAndExperimentationIdExperimentation(idUser, idExpe)
+            .orElseThrow(() -> new RuntimeException("Inscription individuelle introuvable pour l'ID: " + idUser));
+        
+        demande.setDossier(dossier);
+        demandeInscriptionExpeRepository.save(demande);
+    }
 
     @Transactional
     public Professionnel ajouterProfilPro(Long idUtilisateur, UpgradeProDTO dto) {
@@ -107,9 +152,6 @@ public Utilisateur inscrireUtilisateur(Utilisateur utilisateur, Professionnel pr
         return PersonneContactIndustrielRepository.save(contact);
     }
 
-    @Autowired private DossierInscriptionExpeRepository dossierInscriptionExpeRepository;
-    @Autowired private DemandeInscriptionExpeRepository demandeInscriptionExpeRepository;
-
 @Transactional
 public DemandeInscriptionExpe ajouterMissionAUtilisateur(Long idUser, Long idExpe, Role role, Long idDossierExistant) {
     // 1. Récupération des entités de base
@@ -151,18 +193,20 @@ public DemandeInscriptionExpe ajouterMissionAUtilisateur(Long idUser, Long idExp
     // 4. Création de la Demande d'Inscription (Participation)
     DemandeInscriptionExpe demande = new DemandeInscriptionExpe();
     demande.setDossier(dossier);
-    demande.setNonProfessionnel(user.getProfilNonPro());
-    demande.setRoleJoue(role.toString());
+    demande.setUtilisateur(user); 
+    demande.setExperimentation(expe);
+    demande.setDossier(dossier);
+    demande.setRolePourCetteExpe(role);
     
     // Logique de Statut automatique
-    // Si l'expe nécessite un aidant et que le rôle est Senior, on attend l'arrivée de l'aidant
+    // Si l'expe nécessite un aidant et que le rôle est Senior, on wait l'arrivée de l'aidant
     if (role == Role.SENIOR && Boolean.TRUE.equals(expe.getNecessiteAidant())) {
         // Statut EN_ATTENTE par défaut (défini dans ton entité ou ici)
     } else if (role == Role.AIDANT || (role == Role.SENIOR && !expe.getNecessiteAidant())) {
         // Optionnel : Passer en validé automatiquement si conditions remplies
     }
 
-    return demandeRepository.save(demande);
+    return demandeInscriptionExpeRepository.save(demande);
 }
 
     public Optional<Utilisateur> verifierExistence(String nom, String prenom, Date dateNaissance) {

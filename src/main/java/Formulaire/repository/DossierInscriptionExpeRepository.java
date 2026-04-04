@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 import Formulaire.entity.DossierInscriptionExpe;
 
-@Repository
-public interface DossierInscriptionExpeRepository extends JpaRepository<DossierInscriptionExpe, Long> {
-    // Spring Boot génère automatiquement toutes les méthodes SQL
-}
+public interface DossierInscriptionExpeRepository extends JpaRepository<DossierInscriptionExpe, Long> {}

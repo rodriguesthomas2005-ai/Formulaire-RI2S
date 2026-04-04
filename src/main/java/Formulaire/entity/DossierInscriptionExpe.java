@@ -19,25 +19,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 @Entity
 @Table(name = "dossier_inscription_expe")
 @Data
 @NoArgsConstructor
 public class DossierInscriptionExpe {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDemandeInscription;
+    private Long idDossier;
 
     @ManyToOne
-    @JoinColumn(name = "id_expe")
+    @JoinColumn(name = "id_expe", nullable = false)
     private Experimentation experimentation;
 
     @ManyToOne
     @JoinColumn(name = "id_professionnel")
-    private Professionnel professionnelReferent; // Le pro qui suit ce groupe
+    private Professionnel professionnelReferent;
 
     @OneToMany(mappedBy = "dossier", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "dossier-participants")
     private List<DemandeInscriptionExpe> participants = new ArrayList<>();
 
     private LocalDateTime dateCreation = LocalDateTime.now();

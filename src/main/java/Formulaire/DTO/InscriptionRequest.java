@@ -24,6 +24,26 @@ public class InscriptionRequest {
     private DossierCandidature dossierCandidature;
     private Fichier fichier;
 
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public Professionnel getProfilPro() {
+        return profilPro;
+    }
+
+    public NonProfessionnel getProfilNonPro() {
+        return profilNonPro;
+    }
+
+    public PersonneContactIndustriel getPersonneContactIndustriel() {
+        return personneContactIndustriel;
+    }
+
+    public DemandeExpeDTO getDemandeExpe() {
+        return demandeExpe;
+    }
+
     @Data
     public static class DemandeExpeDTO {
     private Long idExperimentation;
@@ -60,6 +80,26 @@ public class InscriptionRequest {
         private String fonction;
         private String emailPersContact;
         private String telephonePersContact;
+
+        public String getFonction() {
+            return fonction;
+        }
+
+        public String getEmailPersContact() {
+            return emailPersContact;
+        }
+
+        public String getTelephonePersContact() {
+            return telephonePersContact;
+        }
+    }
+
+    @Data
+    public static class DossierGroupageRequest {
+        private Long idExpe;
+        private Long idSenior;
+        private Long idAidant; 
+        private Long idPro;    
     }
 }
     

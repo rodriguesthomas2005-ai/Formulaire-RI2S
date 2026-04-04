@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Formulaire.DTO.InscriptionRequest;
+import Formulaire.DTO.InscriptionRequest.DossierGroupageRequest;
 import Formulaire.DTO.InscriptionRequest.UpgradeNonProDTO;
 import Formulaire.DTO.InscriptionRequest.UpgradeProDTO;
 import Formulaire.entity.Role;
 import Formulaire.entity.Utilisateur;
-import Formulaire.repository.UtilisateurRepository;
 import Formulaire.service.UtilisateurService;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -31,7 +31,6 @@ import io.swagger.v3.oas.annotations.Operation;
 public class UtilisateurController {
 
     @Autowired private UtilisateurService utilisateurService;
-    @Autowired private UtilisateurRepository utilisateurRepository;
 
     @Operation(summary = "Inscrire un nouvel utilisateur avec ses profils et sa demande d'expérimentation")
     @PostMapping("/inscription")
@@ -69,20 +68,20 @@ public class UtilisateurController {
         ));
     }
 
-@Operation(summary = "Ajouter une mission à un utilisateur avec rattachement au groupe (Dossier)")
-@PostMapping("/{id}/inscriptions")
-public ResponseEntity<?> ajouterMission(
-        @PathVariable Long id, 
-        @RequestParam Long idExpe, 
-        @RequestParam Role role,
-        @RequestParam(required = false) Long idDossier) { // ID du groupe à rejoindre (null pour Senior)
-    
-    try {
-        return ResponseEntity.ok(utilisateurService.ajouterMissionAUtilisateur(id, idExpe, role, idDossier));
-    } catch (Exception e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+    @Operation(summary = "Ajouter une mission à un utilisateur avec rattachement au groupe (Dossier)")
+    @PostMapping("/{id}/inscriptions")
+    public ResponseEntity<?> ajouterMission(
+            @PathVariable Long id, 
+            @RequestParam Long idExpe, 
+            @RequestParam Role role,
+            @RequestParam(required = false) Long idDossier) { // ID du groupe à rejoindre (null pour Senior)
+        
+        try {
+            return ResponseEntity.ok(utilisateurService.ajouterMissionAUtilisateur(id, idExpe, role, idDossier));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
-}
     
     @Operation(summary = "Vérifier l'existence d'un utilisateur à partir de son nom, prénom et date de naissance")
     @GetMapping("/verification")
@@ -108,6 +107,16 @@ public ResponseEntity<?> ajouterMission(
     @GetMapping
     public ResponseEntity<?> lister() {
         return ResponseEntity.ok(utilisateurService.listerTousLesUtilisateurs());
+    }
+
+    @Operation(summary = "Lier le Sénior et l'Aidant dans un dossier commun")
+    @PostMapping("/finaliser-groupe")
+    public ResponseEntity<?> finaliserGroupe(@RequestBody DossierGroupageRequest request) {
+        try {
+            return ResponseEntity.ok(utilisateurService.finaliserDossierGroupe(request));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 
