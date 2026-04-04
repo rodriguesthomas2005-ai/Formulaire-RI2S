@@ -110,6 +110,8 @@ public class DossierCandidature {
     @Column(length = 1000)
     private String pourquoiRi2s;
 
+    private Boolean transfere =false; 
+
     @NonNull
     @Column(length = 1000)
     private Integer trl;

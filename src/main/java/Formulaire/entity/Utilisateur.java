@@ -49,6 +49,8 @@ public class Utilisateur {
     @Column(nullable = false)
     private Integer codePostal;
 
+    private Boolean transfere =false; 
+
     @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Professionnel profilPro;

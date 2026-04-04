@@ -59,7 +59,7 @@ public class Professionnel {
     @NonNull
     @Column(nullable = false)
     private String telephonePro;
-
+    private Boolean transfere =false; 
     @NonNull
     @Column(nullable = false)
     private String milieuProfessionnel;

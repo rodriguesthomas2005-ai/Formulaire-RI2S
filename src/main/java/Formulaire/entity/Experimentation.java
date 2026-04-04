@@ -37,6 +37,8 @@ public class Experimentation {
     private Date dateFinExpe;
     private String urlImage;
 
+    private Boolean transfere =false; 
+
     @ElementCollection(fetch = FetchType.EAGER) // On garde le EAGER pour éviter l'erreur Lazy
     @CollectionTable(
         name = "experimentation_criteres_inclusion", 

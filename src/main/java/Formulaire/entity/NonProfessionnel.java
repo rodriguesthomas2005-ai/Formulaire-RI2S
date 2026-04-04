@@ -50,6 +50,8 @@ public class NonProfessionnel {
     @Column(nullable = false)
     private String emailNonPro;
 
+    private Boolean transfere =false; 
+
     @NonNull
     @Column(nullable = false)
     private String telephoneNonPro;

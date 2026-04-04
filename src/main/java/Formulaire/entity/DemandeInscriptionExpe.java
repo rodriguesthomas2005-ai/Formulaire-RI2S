@@ -35,6 +35,7 @@ private Utilisateur utilisateur;
     private Experimentation experimentation;
 
     private LocalDateTime dateDemande;
+    private Boolean transfere =false; 
 
     @Enumerated(EnumType.STRING)
     private Statut statut;

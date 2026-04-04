@@ -34,6 +34,8 @@ public class PersonneContactIndustriel {
     @Column(nullable = false)
     private String telephonePersContact;
 
+    private Boolean transfere =false; 
+
     @OneToOne
     @MapsId 
     @JoinColumn(name = "id_utilisateur", nullable = false)
