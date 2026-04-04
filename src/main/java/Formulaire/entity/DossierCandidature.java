@@ -73,7 +73,7 @@ public class DossierCandidature {
 
     @NonNull
     @Column(length = 1000)
-    private Boolean comite;
+    private String comite;
 
     @NonNull
     @Column(length = 1000)
