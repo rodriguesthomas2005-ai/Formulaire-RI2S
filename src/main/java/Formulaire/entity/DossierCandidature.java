@@ -104,7 +104,6 @@ public class DossierCandidature {
     private String accompagnement;
 
     @NonNull
-    @Column(length = 1000)
     private Boolean tiersLieux;
 
     @NonNull
@@ -120,7 +119,6 @@ public class DossierCandidature {
     private String justificationTrl;
 
     @NonNull
-    @Column(length = 1000)
     private Boolean dispositifMedical;
 
     @NonNull
