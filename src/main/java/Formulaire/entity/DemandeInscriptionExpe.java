@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,7 +18,8 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import java.time.LocalDateTime;
+
+import jakarta.persistence.Transient;
 
 
 @Entity
@@ -33,6 +35,12 @@ public class DemandeInscriptionExpe {
     @JoinColumn(name = "id_utilisateur", nullable = false)
     @JsonBackReference 
     private Utilisateur utilisateur;
+
+    @Transient // Ne pas créer de colonne en base de données
+    @JsonProperty("idUtilisateur") // Sera affiché dans le JSON
+    public Long getIdUtilisateurValue() {
+        return utilisateur != null ? utilisateur.getIdUtilisateur() : null;
+    }
 
     @ManyToOne
     @JoinColumn(name = "id_experimentation", nullable = false)
