@@ -26,9 +26,10 @@ public class InscriptionRequest {
 
     @Data
     public static class DemandeExpeDTO {
-        private Long idExperimentation;
-        private Role rolePourCetteExpe; 
-    }
+    private Long idExperimentation;
+    private Role rolePourCetteExpe; 
+    private Long idDossier;
+}
 
     @Data
     public static class UpgradeNonProDTO {

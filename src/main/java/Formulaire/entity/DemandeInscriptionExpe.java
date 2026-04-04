@@ -1,12 +1,8 @@
 package Formulaire.entity;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,26 +17,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class DemandeInscriptionExpe {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDemandeInscriptionExpe;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idParticipation;
 
     @ManyToOne
-@JoinColumn(name = "id_utilisateur", nullable = false)
-@JsonBackReference 
-private Utilisateur utilisateur;
+    @JoinColumn(name = "id_dossier")
+    @JsonBackReference
+    private DossierInscriptionExpe dossier;
 
     @ManyToOne
-    @JoinColumn(name = "id_experimentation", nullable = false)
-    private Experimentation experimentation;
+    @JoinColumn(name = "id_non_pro")
+    private NonProfessionnel nonProfessionnel;
 
-    private LocalDateTime dateDemande;
-    private Boolean transfere =false; 
-
-    @Enumerated(EnumType.STRING)
-    private Statut statut;
-
-    @Enumerated(EnumType.STRING)
-    private Role rolePourCetteExpe; 
+    private String roleJoue;
 
 }

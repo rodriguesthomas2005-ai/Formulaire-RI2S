@@ -69,11 +69,20 @@ public class UtilisateurController {
         ));
     }
 
-    @Operation(summary = "Ajouter une mission à un utilisateur pour une expérimentation donnée")
-    @PostMapping("/{id}/inscriptions")
-    public ResponseEntity<?> ajouterMission(@PathVariable Long id, @RequestParam Long idExpe, @RequestParam Role role) {
-        return ResponseEntity.ok(utilisateurService.ajouterMissionAUtilisateur(id, idExpe, role));
+@Operation(summary = "Ajouter une mission à un utilisateur avec rattachement au groupe (Dossier)")
+@PostMapping("/{id}/inscriptions")
+public ResponseEntity<?> ajouterMission(
+        @PathVariable Long id, 
+        @RequestParam Long idExpe, 
+        @RequestParam Role role,
+        @RequestParam(required = false) Long idDossier) { // ID du groupe à rejoindre (null pour Senior)
+    
+    try {
+        return ResponseEntity.ok(utilisateurService.ajouterMissionAUtilisateur(id, idExpe, role, idDossier));
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
+}
     
     @Operation(summary = "Vérifier l'existence d'un utilisateur à partir de son nom, prénom et date de naissance")
     @GetMapping("/verification")
