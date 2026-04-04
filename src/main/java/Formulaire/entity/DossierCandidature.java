@@ -41,27 +41,114 @@ public class DossierCandidature {
 
     @NonNull
     @Column(length = 1000)
+    private String nomSolution;
+
+    @NonNull
+    @Column(length = 1000)
     private String descriptionSolution;
 
     @NonNull
     @Column(length = 1000)
-    private String equipeEcosysteme;
+    private String problematique;
 
     @NonNull
     @Column(length = 1000)
-    private String integrationMarche;
+    private String typrInnovation;
 
     @NonNull
     @Column(length = 1000)
-    private String technologieNiveauMaturite;
+    private String benefices;
 
     @NonNull
     @Column(length = 1000)
-    private String projetExpeSouhaite;
+    private String caractereInnovant;
 
     @NonNull
     @Column(length = 1000)
-    private String commentaire;
+    private String coconception;
+
+    @NonNull
+    @Column(length = 1000)
+    private String implication;
+
+    @NonNull
+    @Column(length = 1000)
+    private Boolean comite;
+
+    @NonNull
+    @Column(length = 1000)
+    private String marche;
+
+    @NonNull
+    @Column(length = 1000)
+    private String modeleEco;
+
+    @NonNull
+    @Column(length = 1000)
+    private String commercialisation;
+
+    @NonNull
+    @Column(length = 1000)
+    private String financement;
+
+    @NonNull
+    @Column(length = 1000)
+    private String concurrents;
+
+    @NonNull
+    @Column(length = 1000)
+    private String equipe;
+
+    @NonNull
+    @Column(length = 1000)
+    private String accompagnement;
+
+    @NonNull
+    @Column(length = 1000)
+    private Boolean tiersLieux;
+
+    @NonNull
+    @Column(length = 1000)
+    private String pourquoiRi2s;
+
+    @NonNull
+    @Column(length = 1000)
+    private Integer trl;
+
+    @NonNull
+    @Column(length = 1000)
+    private String justificationTrl;
+
+    @NonNull
+    @Column(length = 1000)
+    private Boolean dispositifMedical;
+
+    @NonNull
+    @Column(length = 1000)
+    private String justificationDispositifMedical;
+
+    @Column(length = 1000)
+    private String classeDispositif;
+
+    @NonNull
+    @Column(length = 1000)
+    private String besoins;
+
+    @NonNull
+    @Column(length = 1000)
+    private String descriptionBesoins;
+
+    @NonNull
+    @Column(length = 1000)
+    private String questiosProjet;
+
+    @NonNull
+    @Column(length = 1000)
+    private String terrainExperimentation;
+
+    @NonNull
+    @Column(length = 1000)
+    private String conclusion;
 
     @ManyToOne
     @JoinColumn(name = "id_industriel")

@@ -45,7 +45,7 @@ public class Industriel {
 
     @NonNull
     @Column(nullable = false)
-    private String mailIndustriel;
+    private String adresseIndustriel;
 
     @NonNull
     @Column(nullable = false)

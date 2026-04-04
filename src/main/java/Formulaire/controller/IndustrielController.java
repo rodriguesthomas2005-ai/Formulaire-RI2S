@@ -46,7 +46,7 @@ public class IndustrielController {
     }
 
     @Operation(summary = "Inscrire un industriel avec son dossier et plusieurs fichiers")
-    @PostMapping(value = "/inscription/{idUser}/industriel", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/inscription/{idUser}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Industriel> ajouterDossierIndustriel(
             @PathVariable Long idUser,
             @RequestPart("industriel") String industrielJson, 
