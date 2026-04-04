@@ -46,3 +46,9 @@ VALUES (1, 4, 'EN_ATTENTE', 'Dossier V1', 'Solution IA', 'Algorithme prédiction
 -- 10. FICHIER
 INSERT INTO fichier (id_dossier, nom_fichier, type, taille, donnees) 
 VALUES (1, 'schema.pdf', 'application/pdf', '2.4 MB', '\x25504446');
+
+-- 11. REGLAGE DES SEQUENCES (PostgreSQL)
+SELECT setval('utilisateur_id_utilisateur_seq', (SELECT MAX(id_utilisateur) FROM utilisateur));
+SELECT setval('experimentation_id_experimentation_seq', (SELECT MAX(id_experimentation) FROM experimentation));
+SELECT setval('dossier_inscription_expe_id_dossier_seq', (SELECT MAX(id_dossier) FROM dossier_inscription_expe));
+SELECT setval('demande_inscription_expe_id_demande_seq', (SELECT MAX(id_demande) FROM demande_inscription_expe));
