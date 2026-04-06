@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    environment:
+      - POSTGRES_DB=ma_base_ri2s
+      - POSTGRES_USER=mon_utilisateur
+      - POSTGRES_PASSWORD=mon_mot_de_passe
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+
+  backend:
+    image: registry.gitlab.com/rodriguesthomas/formulaire-ri2s:latest
+    container_name: backend-api
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/ma_base_ri2s
+      - JDBC_DATABASE_USERNAME=mon_utilisateur
+      - JDBC_DATABASE_PASSWORD=mon_mot_de_passe
+
+volumes:
+  postgres_data:

@@ -1,0 +1,16 @@
+image: docker:latest
+services:
+  - [cite_start]docker:dind [cite: 130, 132]
+
+stages:
+  - [cite_start]package [cite: 133, 134]
+
+docker-build:
+  [cite_start]stage: package [cite: 136]
+  script:
+    # Connexion au registre de votre projet GitLab
+    - [cite_start]docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY [cite: 110, 139]
+    # Build de l'image avec le nom du registre GitLab
+    - [cite_start]docker build -t $CI_REGISTRY_IMAGE:latest . [cite: 61, 138]
+    # Envoi de l'image vers le serveur GitLab
+    - [cite_start]docker push $CI_REGISTRY_IMAGE:latest [cite: 9, 113, 139]

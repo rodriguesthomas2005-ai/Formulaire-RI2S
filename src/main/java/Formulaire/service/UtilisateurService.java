@@ -180,10 +180,10 @@ public DemandeInscriptionExpe ajouterMissionAUtilisateur(Long idUser, Long idExp
 }
 
     public Optional<Utilisateur> verifierExistence(String nom, String prenom, Date dateNaissance) {
-    return utilisateurRepository.findByNomIgnoreCaseAndPrenomIgnoreCaseAndDateNaissance(
-        nom, prenom, dateNaissance
-    );
-}
+        return utilisateurRepository.findByNomIgnoreCaseAndPrenomIgnoreCaseAndDateNaissance(
+            nom, prenom, dateNaissance
+        );
+    }
 
     public List<Utilisateur> listerTousLesUtilisateurs() {
         return utilisateurRepository.findAll();
